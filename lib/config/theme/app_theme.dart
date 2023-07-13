@@ -1,28 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:zog_ui/zog_ui.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-const Color _customColor = Color(0xFF5C11D4);
+InputDecorationType _defaultDecorationType = InputDecorationType.outline;
 
-const List<Color> _colorThemes = [
-  _customColor,
-  Colors.blue,
-  Colors.teal,
-  Colors.green,
-  Colors.yellow,
-  Colors.orange,
-  Colors.pink
-];
+ShadedColor _selectedColor = ZeroColors.primary;
+bool _customFont = false;
+bool _dark = false;
 
 class AppTheme {
-  final int selectedColor;
+  AppTheme();
 
-  AppTheme({this.selectedColor = 0})
-      : assert(selectedColor >= 0 && selectedColor <= _colorThemes.length - 1,
-            'Colors must be between 0 and ${_colorThemes.length}');
-
-  ThemeData theme() {
-    return ThemeData(
-      useMaterial3: true,
-      colorSchemeSeed: _colorThemes[selectedColor],
-    );
+  ZeroThemeData theme() {
+    return ZeroThemeData(
+        fontFamily: _customFont ? GoogleFonts.dancingScript().fontFamily : null,
+        brightness: _dark ? Brightness.dark : Brightness.light,
+        primaryColor: _selectedColor.toAccentColor(),
+        textfieldStyleSet: ZeroTextfieldStyleSet.fallback(
+            textfieldSize: ZeroTextfieldSize.small,
+            defaultDecorationType: _defaultDecorationType,
+            focusedBorderColor: _selectedColor,
+            focusedColor: _selectedColor));
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter_text_box/flutter_text_box.dart';
 import 'package:voto_facil/presentation/widgets/registro/checkbox_button.dart';
 import 'package:voto_facil/presentation/widgets/registro/date_picker.dart';
 import 'package:voto_facil/presentation/widgets/registro/radio_button.dart';
+import 'package:zog_ui/zog_ui.dart';
 
 class RegistroPage extends StatefulWidget {
   const RegistroPage({super.key});
@@ -23,6 +24,7 @@ class _RegistroPageState extends State<RegistroPage> {
   String rcontrasena = "";
   bool checkTerminos = false;
   final key = GlobalKey<FormState>();
+  final textController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,6 +77,12 @@ class _RegistroPageState extends State<RegistroPage> {
                           onSaved: (String value) {
                             nombres = value;
                           },
+                        ),
+                        ZeroTextField(
+                          hintText: 'Search Component',
+                          controller: textController,
+                          decoration: const InputDecoration(filled: true),
+                          onChanged: (v) {},
                         ),
                         const SizedBox(height: 15),
                         Container(
@@ -189,10 +197,7 @@ class _RegistroPageState extends State<RegistroPage> {
                                 backgroundColor:
                                     MaterialStateProperty.all<Color>(
                                         Colors.red)),
-                            onPressed: () => {
-                                  Navigator.of(context)
-                                      .pushReplacementNamed("/registro"),
-                                },
+                            onPressed: () => limpiar(),
                             child: const Text(
                               'Limpiar formularios',
                               style: TextStyle(color: Colors.white),
@@ -241,5 +246,9 @@ class _RegistroPageState extends State<RegistroPage> {
         },
       );
     }
+  }
+
+  limpiar() {
+    textController.clear();
   }
 }

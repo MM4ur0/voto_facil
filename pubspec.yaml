@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   animate_do: ^3.0.2
   flutter_text_box: ^0.0.1
+  zog_ui: ^0.0.1-alpha.17
+  google_fonts: ^5.1.0
 
 dev_dependencies:
   flutter_test:

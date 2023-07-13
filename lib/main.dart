@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:voto_facil/config/routes/index.dart';
 import 'package:voto_facil/config/theme/app_theme.dart';
+import 'package:zog_ui/zog_ui.dart';
 
 void main() => runApp(MyApp());
 
@@ -18,10 +19,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return ZeroApp(
       title: 'Material App',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme(selectedColor: 1).theme(),
+      theme: AppTheme().theme(),
       initialRoute: '/',
       routes: _routes,
       onGenerateRoute: (settings) {
