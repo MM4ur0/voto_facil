@@ -22,7 +22,7 @@ class _CheckboxExampleState extends State<CheckboxButton> {
       if (states.any(interactiveStates.contains)) {
         return Colors.blue;
       }
-      return Colors.white;
+      return Colors.grey.shade200;
     }
 
     return Checkbox(
