@@ -190,7 +190,8 @@ class _RegistroPageState extends State<RegistroPage> {
                                     MaterialStateProperty.all<Color>(
                                         Colors.red)),
                             onPressed: () => {
-                                  Navigator.pushNamed(context, '/registro'),
+                                  Navigator.of(context)
+                                      .pushReplacementNamed("/registro"),
                                 },
                             child: const Text(
                               'Limpiar formularios',
