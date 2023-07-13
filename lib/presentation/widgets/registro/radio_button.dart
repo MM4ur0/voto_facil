@@ -20,7 +20,7 @@ class _RadioButtonState extends State<RadioButton> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         SizedBox(
-          width: 150, // Ancho máximo deseado para los ListTile
+          width: 160,
           child: ListTile(
             horizontalTitleGap: -10,
             title: const Text('Masculino'),
@@ -37,7 +37,7 @@ class _RadioButtonState extends State<RadioButton> {
           ),
         ),
         SizedBox(
-          width: 150,
+          width: 160,
           child: ListTile(
             horizontalTitleGap: -10,
             title: const Text('Femenino'),
