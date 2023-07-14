@@ -206,7 +206,6 @@ class _RegistroPageState extends State<RegistroPage> {
                             });
                           },
                         ),
-                        SizedBox(),
                         Visibility(
                           visible:
                               regionError, // Establece la visibilidad según el valor de la variable
