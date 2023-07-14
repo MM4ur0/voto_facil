@@ -23,7 +23,7 @@ class _PartidoPoliticoState extends State<PartidoPolitico> {
     return Scaffold(
       drawer: const Drawer(),
       appBar: AppBar(
-        title: const Text("Nombre partido politico seleccionado"),
+        title: const Text("Partido político"),
       ),
       body: _paginas[_paginaActual],
       bottomNavigationBar: BottomNavigationBar(

@@ -5,8 +5,30 @@ class CandidatosPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text("Los candidatos"),
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.only(
+          top: 15,
+          right: 15,
+          bottom: 15,
+          left: 15,
+        ),
+        child: Column(
+          children: [
+            const Text(
+              "Nombre del partido político",
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Container(height: 150, color: Colors.blue),
+            const SizedBox(
+              height: 15,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
