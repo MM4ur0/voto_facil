@@ -6,7 +6,7 @@ import 'package:voto_facil/presentation/widgets/registro/radio_button.dart';
 import 'package:zog_ui/zog_ui.dart';
 
 class RegistroPage extends StatefulWidget {
-  const RegistroPage({super.key});
+  const RegistroPage({Key? key}) : super(key: key);
 
   @override
   State<RegistroPage> createState() => _RegistroPageState();
@@ -30,12 +30,19 @@ class _RegistroPageState extends State<RegistroPage> {
   bool passw1Error = false;
   bool passw2Error = false;
   bool regionError = false;
-  bool mostrarError1 = false;
-  bool mostrarError2 = false;
-  bool mostrarError3 = false;
-  bool mostrarError4 = false;
-  bool mostrarError5 = false;
-  bool mostrarError6 = false;
+  bool _isObscure = true;
+  bool _isObscureR = true;
+
+  String? dropdownValue;
+  bool dropdownError = false;
+  String? dropdownDefaultValue = 'Seleccione';
+  final List<String> regiones = [
+    "Seleccione",
+    "Costa",
+    "Sierra",
+    "Oriente",
+  ];
+
   final key = GlobalKey<FormState>();
   final apellidosController = TextEditingController();
   final nombresController = TextEditingController();
@@ -43,8 +50,6 @@ class _RegistroPageState extends State<RegistroPage> {
   final cedulaController = TextEditingController();
   final passw1Controller = TextEditingController();
   final passw2Controller = TextEditingController();
-
-  _RegistroPageState();
 
   @override
   void dispose() {
@@ -56,172 +61,168 @@ class _RegistroPageState extends State<RegistroPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Registro de usuario"),
-        ),
-        body: Container(
-          margin: const EdgeInsets.only(top: 15),
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Form(
-              key: key,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  FadeInLeft(
-                    child: Column(
-                      children: [
-                        const Text(
-                          "Datos personales",
-                          style: TextStyle(
-                              fontSize: 30, fontWeight: FontWeight.bold),
+      appBar: AppBar(
+        title: const Text("Registro de usuario"),
+      ),
+      body: Container(
+        margin: const EdgeInsets.only(top: 15),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Form(
+            key: key,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                FadeInLeft(
+                  child: Column(
+                    children: [
+                      const Text(
+                        "Datos personales",
+                        style: TextStyle(
+                            fontSize: 30, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 15),
+                      ZeroTextField(
+                        suffixIcon: const Icon(
+                          ZeroIcons.idcard,
+                          color: Colors.blueAccent,
+                          size: 17,
                         ),
-                        const SizedBox(height: 15),
-                        ZeroTextField(
-                            suffixIcon: const Icon(
-                              ZeroIcons.idcard,
-                              color: Colors.blueAccent,
-                              size: 17,
-                            ),
-                            keyboardType: TextInputType.number,
-                            controller: cedulaController,
-                            labelText: 'Cédula de identidad',
-                            hintText: 'Ingresa tu número de cédula',
-                            errorText: cedulaError
-                                ? 'Este campo es requerido !'
-                                : null,
-                            onSaved: (value) {
-                              cedula = value ?? '';
-                              cedulaError = true;
-                              mostrarError1 = true;
-                            },
-                            onChanged: (value) {
-                              setState(() {
-                                cedula = value;
-                                mostrarError1 = true;
-                              });
-                            }),
-                        const SizedBox(height: 15),
-                        ZeroTextField(
-                          suffixIcon: const Icon(
-                            ZeroIcons.form,
-                            color: Colors.blueAccent,
-                            size: 17,
-                          ),
-                          labelText: "Apellidos",
-                          hintText: 'Ingresa tus Apellidos aquí',
-                          errorText: apellidosError
-                              ? 'Este campo es requerido !'
-                              : null,
-                          controller: apellidosController,
-                          decoration: const InputDecoration(filled: true),
-                          onSaved: (value) {
-                            apellidos = value ?? '';
-                            apellidosError = true;
-                            mostrarError2 = true;
-                          },
-                          onChanged: (value) {
-                            setState(() {
-                              apellidos = value;
-                              mostrarError2 = true;
-                            });
-                          },
+                        keyboardType: TextInputType.number,
+                        controller: cedulaController,
+                        labelText: 'Cédula de identidad',
+                        hintText: 'Ingresa tu número de cédula',
+                        errorText:
+                            cedulaError ? 'Este campo es requerido !' : null,
+                        onSaved: (value) {
+                          cedula = value ?? '';
+                          cedulaError = true;
+                        },
+                        onChanged: (value) {
+                          setState(() {
+                            cedula = value;
+                          });
+                        },
+                      ),
+                      const SizedBox(height: 15),
+                      ZeroTextField(
+                        suffixIcon: const Icon(
+                          ZeroIcons.form,
+                          color: Colors.blueAccent,
+                          size: 17,
                         ),
-                        const SizedBox(height: 15),
-                        ZeroTextField(
-                            suffixIcon: const Icon(
-                              ZeroIcons.form,
-                              color: Colors.blueAccent,
-                              size: 17,
-                            ),
-                            labelText: "Nombres",
-                            hintText: 'Ingresa tus nombres aquí',
-                            controller: nombresController,
-                            decoration: const InputDecoration(filled: true),
-                            errorText: nombresError
-                                ? 'Este campo es requerido !'
-                                : null,
-                            onSaved: (value) {
-                              nombres = value ?? '';
-                              nombresError = true;
-                              mostrarError3 = true;
-                            },
-                            onChanged: (value) {
-                              setState(() {
-                                nombres = value;
-                                mostrarError3 = true;
-                              });
-                            }),
-                        const SizedBox(height: 15),
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.blue.shade200,
-                              width: 1.0,
-                            ),
-                            borderRadius: BorderRadius.circular(8.0),
+                        labelText: "Apellidos",
+                        hintText: 'Ingresa tus Apellidos aquí',
+                        errorText:
+                            apellidosError ? 'Este campo es requerido !' : null,
+                        controller: apellidosController,
+                        decoration: const InputDecoration(filled: true),
+                        onSaved: (value) {
+                          apellidos = value ?? '';
+                          apellidosError = true;
+                        },
+                        onChanged: (value) {
+                          setState(() {
+                            apellidos = value;
+                          });
+                        },
+                      ),
+                      const SizedBox(height: 15),
+                      ZeroTextField(
+                        suffixIcon: const Icon(
+                          ZeroIcons.form,
+                          color: Colors.blueAccent,
+                          size: 17,
+                        ),
+                        labelText: "Nombres",
+                        hintText: 'Ingresa tus nombres aquí',
+                        controller: nombresController,
+                        decoration: const InputDecoration(filled: true),
+                        errorText:
+                            nombresError ? 'Este campo es requerido !' : null,
+                        onSaved: (value) {
+                          nombres = value ?? '';
+                          nombresError = true;
+                        },
+                        onChanged: (value) {
+                          setState(() {
+                            nombres = value;
+                          });
+                        },
+                      ),
+                      const SizedBox(height: 15),
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.blueGrey,
+                            width: 1.0,
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 18, top: 10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  "Género",
-                                  style: TextStyle(fontSize: 15),
-                                ),
-                                RadioButton(
-                                  onGenderSelected: (value) {
-                                    setState(() {
-                                      genero = value;
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 18, top: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                "Género",
+                                style: TextStyle(fontSize: 15),
+                              ),
+                              RadioButton(
+                                onGenderSelected: (value) {
+                                  setState(() {
+                                    genero = value;
+                                  });
+                                },
+                              ),
+                            ],
                           ),
                         ),
-                        const SizedBox(height: 15),
-                        DatePicker(
-                          onDateSelected: (value) {
-                            setState(() {
-                              fechaNac = value;
-                            });
-                          },
+                      ),
+                      const SizedBox(height: 15),
+                      DatePicker(
+                        onDateSelected: (value) {
+                          setState(() {
+                            fechaNac = value;
+                          });
+                        },
+                      ),
+                      const SizedBox(height: 15),
+
+// ...
+
+                      DropdownButtonFormField<String>(
+                        value: dropdownValue,
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            dropdownValue = newValue!;
+                            dropdownError = false;
+                          });
+                        },
+                        validator: (value) {
+                          if (dropdownValue == "Seleccione") {
+                            return 'Seleccione una opción';
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Seleccionar opción',
+                          errorText:
+                              dropdownError ? 'Este campo es requerido' : null,
                         ),
-                        const SizedBox(height: 15),
-                        ZeroDropdown(
-                          labelText: "Seleccione una Región",
-                          items: const [
-                            "Seleccione",
-                            "Costa",
-                            "Sierra",
-                            "Oriente"
-                          ],
-                          value: region,
-                          onChanged: (value) {
-                            setState(() {
-                              region = value;
-                              regionError = false;
-                            });
-                          },
-                        ),
-                        Visibility(
-                          visible:
-                              regionError, // Establece la visibilidad según el valor de la variable
-                          child: const Text(
-                            'Campo obligatorio', // Texto a mostrar
-                            style: TextStyle(
-                              fontSize: 13,
-                              color: Color.fromARGB(255, 255, 33, 33),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
+                        items: regiones.map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
+                    ],
                   ),
-                  FadeInRight(
-                      child: Column(
+                ),
+                FadeInRight(
+                  child: Column(
                     children: [
                       const SizedBox(height: 15),
                       const Text(
@@ -231,79 +232,116 @@ class _RegistroPageState extends State<RegistroPage> {
                       ),
                       const SizedBox(height: 15),
                       ZeroTextField(
-                          suffixIcon: const Icon(
-                            ZeroIcons.mail,
-                            color: Colors.blueAccent,
-                            size: 17,
-                          ),
-                          labelText: 'Correo Eletrónico',
-                          hintText: 'ejemplo@email.com',
-                          controller: correoController,
-                          keyboardType: TextInputType.emailAddress,
-                          decoration: const InputDecoration(filled: true),
-                          errorText:
-                              correoError ? 'Este campo es requerido !' : null,
-                          onSaved: (value) {
-                            correo = value ?? '';
-                            correoError = true;
-                            mostrarError4 = true;
-                          },
-                          onChanged: (value) {
-                            setState(() {
-                              correo = value;
-                              mostrarError4 = true;
-                            });
-                          }),
+                        suffixIcon: const Icon(
+                          ZeroIcons.mail,
+                          color: Colors.blueAccent,
+                          size: 17,
+                        ),
+                        labelText: 'Correo Eletrónico',
+                        hintText: 'ejemplo@email.com',
+                        controller: correoController,
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: const InputDecoration(filled: true),
+                        errorText:
+                            correoError ? 'Este campo es requerido !' : null,
+                        onSaved: (value) {
+                          correo = value ?? '';
+                          correoError = true;
+                        },
+                        onChanged: (value) {
+                          setState(() {
+                            correo = value;
+                          });
+                        },
+                      ),
                       const SizedBox(height: 15),
-                      ZeroTextField(
-                          suffixIcon: const Icon(
-                            ZeroIcons.lock,
-                            color: Colors.blueAccent,
-                            size: 17,
-                          ),
+                      TextField(
+                        obscureText: _isObscure,
+                        controller: passw1Controller,
+                        decoration: InputDecoration(
                           labelText: 'Contraseña',
-                          hintText: 'Ingresa la contraseña para el acceso',
-                          controller: passw1Controller,
-                          keyboardType: TextInputType.number,
-                          decoration: const InputDecoration(filled: true),
-                          errorText:
-                              passw1Error ? 'Este campo es requerido !' : null,
-                          onSaved: (value) {
-                            contrasena = value ?? '';
-                            passw1Error = true;
-                            mostrarError5 = true;
-                          },
-                          onChanged: (value) {
-                            setState(() {
-                              contrasena = value;
-                              mostrarError5 = true;
-                            });
-                          }),
-                      const SizedBox(height: 15),
-                      ZeroTextField(
-                          suffixIcon: const Icon(
-                            ZeroIcons.lock,
-                            color: Colors.blueAccent,
-                            size: 17,
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _isObscure
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _isObscure = !_isObscure;
+                              });
+                            },
                           ),
-                          labelText: 'Repetir contraseña',
-                          hintText: 'Repite la contraseña para el acceso',
-                          controller: passw2Controller,
-                          keyboardType: TextInputType.number,
-                          decoration: const InputDecoration(filled: true),
-                          errorText:
-                              passw2Error ? 'Este campo es requerido !' : null,
-                          onSaved: (value) {
-                            rcontrasena = value ?? '';
-                            passw2Error = true;
-                            mostrarError6 = true;
-                          },
-                          onChanged: (value) {
-                            setState(() {
-                              rcontrasena = value;
-                              mostrarError6 = true;
-                            });
-                          }),
+                        ),
+                        onChanged: (value) {
+                          setState(() {
+                            contrasena = value;
+                            passw1Error = value.isEmpty;
+                          });
+                        },
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Visibility(
+                          visible: passw1Error,
+                          child: Container(
+                            margin: const EdgeInsets.only(left: 8.0),
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: const Text(
+                              'Campo obligatorio',
+                              style: TextStyle(
+                                fontSize: 13,
+                                color: Color.fromARGB(255, 255, 33, 33),
+                              ),
+                              textAlign: TextAlign.left,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                      TextField(
+                        obscureText: _isObscureR,
+                        controller: passw2Controller,
+                        decoration: InputDecoration(
+                          labelText: 'Repetir Contraseña',
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _isObscureR
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _isObscureR = !_isObscureR;
+                              });
+                            },
+                          ),
+                        ),
+                        onChanged: (value) {
+                          setState(() {
+                            rcontrasena = value;
+                            passw2Error = value.isEmpty;
+                          });
+                        },
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Visibility(
+                          visible: passw2Error,
+                          child: Container(
+                            margin: const EdgeInsets.only(left: 8.0),
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: const Text(
+                              'Campo obligatorio',
+                              style: TextStyle(
+                                fontSize: 13,
+                                color: Color.fromARGB(255, 255, 33, 33),
+                              ),
+                              textAlign: TextAlign.left,
+                            ),
+                          ),
+                        ),
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -315,43 +353,48 @@ class _RegistroPageState extends State<RegistroPage> {
                           const Text(
                             "Estoy de acuerdo, acepto los terminos y condiciones",
                             style: TextStyle(fontSize: 12),
-                          )
+                          ),
                         ],
                       ),
                       const SizedBox(height: 15),
                     ],
-                  )),
-                  FadeIn(
-                    duration: const Duration(seconds: 2),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ZeroButton.primary(
-                            buttonSizeType: ZeroSizeType.large,
-                            buttonRadiusType: ZeroButtonRadiusType.rounded,
-                            onPressed: () => submitForm(),
-                            child: const Text('Enviar')),
-                        ZeroButton.primary(
-                            buttonSizeType: ZeroSizeType.large,
-                            buttonRadiusType: ZeroButtonRadiusType.rounded,
-                            style: const ZeroButtonStyle(
-                                backgroundColor: ZeroColors.dustRed),
-                            onPressed: () => limpiar(),
-                            child: const Text(
-                              'Limpiar formulario',
-                              style: TextStyle(color: Colors.white),
-                            ))
-                      ],
-                    ),
-                  )
-                ],
-              ),
+                  ),
+                ),
+                FadeIn(
+                  duration: const Duration(seconds: 2),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ZeroButton.primary(
+                        buttonSizeType: ZeroSizeType.large,
+                        buttonRadiusType: ZeroButtonRadiusType.rounded,
+                        onPressed: () => submitForm(),
+                        child: const Text('Enviar'),
+                      ),
+                      ZeroButton.primary(
+                        buttonSizeType: ZeroSizeType.large,
+                        buttonRadiusType: ZeroButtonRadiusType.rounded,
+                        style: const ZeroButtonStyle(
+                          backgroundColor: ZeroColors.dustRed,
+                        ),
+                        onPressed: () => limpiar(),
+                        child: const Text(
+                          'Limpiar formulario',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 
-  submitForm() {
+  void submitForm() {
     final state = key.currentState;
     if (state!.validate()) {
       state.save();
@@ -362,8 +405,7 @@ class _RegistroPageState extends State<RegistroPage> {
         correoError = correo.isEmpty;
         passw1Error = contrasena.isEmpty;
         passw2Error = rcontrasena.isEmpty;
-        regionError =
-            region == "Seleccione"; // Validar si "Seleccione" está seleccionado
+        regionError = region == "Seleccione";
       });
 
       if (!apellidosError &&
@@ -372,7 +414,7 @@ class _RegistroPageState extends State<RegistroPage> {
           !correoError &&
           !passw1Error &&
           !passw2Error &&
-          !regionError) {
+          dropdownValue != dropdownDefaultValue) {
         showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -386,7 +428,7 @@ class _RegistroPageState extends State<RegistroPage> {
                 "Cedula: $cedula \n"
                 "Nombres: $nombres \n"
                 "Apellidos: $apellidos \n"
-                "Región: $region \n"
+                "Región: $dropdownValue \n"
                 "Género: $genero \n"
                 "Nace: $fechaNac \n"
                 "Correo: $correo \n"
@@ -414,13 +456,11 @@ class _RegistroPageState extends State<RegistroPage> {
         correoError = correo.isEmpty;
         passw1Error = contrasena.isEmpty;
         passw2Error = rcontrasena.isEmpty;
-        regionError =
-            region == "Seleccione"; // Validar si "Seleccione" está seleccionado
       });
     }
   }
 
-  limpiar() {
+  void limpiar() {
     nombresController.clear();
     apellidosController.clear();
     correoController.clear();
@@ -428,6 +468,7 @@ class _RegistroPageState extends State<RegistroPage> {
     passw2Controller.clear();
     cedulaController.clear();
     setState(() {
+      dropdownValue = dropdownDefaultValue!;
       regionError = false;
       apellidosError = false;
       nombresError = false;

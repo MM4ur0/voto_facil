@@ -18,7 +18,7 @@ class _DatePickerState extends State<DatePicker> {
         decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(8)),
             border: Border.all(
-              color: Colors.blue.shade200,
+              color: Colors.blueGrey,
             )),
         child: Padding(
           padding: const EdgeInsets.only(left: 20),
