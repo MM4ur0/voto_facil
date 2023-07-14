@@ -200,13 +200,14 @@ class _RegistroPageState extends State<RegistroPage> {
                           });
                         },
                         validator: (value) {
-                          if (dropdownValue == "Seleccione") {
+                          if (dropdownValue == "Seleccione" ||
+                              dropdownValue == null) {
                             return 'Seleccione una opción';
                           }
                           return null;
                         },
                         decoration: InputDecoration(
-                          border: OutlineInputBorder(),
+                          border: const OutlineInputBorder(),
                           labelText: 'Seleccionar opción',
                           errorText:
                               dropdownError ? 'Este campo es requerido' : null,
@@ -414,6 +415,7 @@ class _RegistroPageState extends State<RegistroPage> {
           !correoError &&
           !passw1Error &&
           !passw2Error &&
+          dropdownValue != null &&
           dropdownValue != dropdownDefaultValue) {
         showDialog(
           context: context,
@@ -424,7 +426,7 @@ class _RegistroPageState extends State<RegistroPage> {
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
               content: Text(
-                "¡La validación del formulario se ha realizado correctamente!\n"
+                "¡La validación del formulario se ha realizado correctamente!\n\n"
                 "Cedula: $cedula \n"
                 "Nombres: $nombres \n"
                 "Apellidos: $apellidos \n"
