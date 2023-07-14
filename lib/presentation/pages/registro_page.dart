@@ -29,6 +29,7 @@ class _RegistroPageState extends State<RegistroPage> {
   bool correoError = false;
   bool passw1Error = false;
   bool passw2Error = false;
+  bool regionError = false;
   bool mostrarError1 = false;
   bool mostrarError2 = false;
   bool mostrarError3 = false;
@@ -201,9 +202,22 @@ class _RegistroPageState extends State<RegistroPage> {
                           onChanged: (value) {
                             setState(() {
                               region = value;
+                              regionError = false;
                             });
                           },
                         ),
+                        SizedBox(),
+                        Visibility(
+                          visible:
+                              regionError, // Establece la visibilidad según el valor de la variable
+                          child: const Text(
+                            'Campo obligatorio', // Texto a mostrar
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: Color.fromARGB(255, 255, 33, 33),
+                            ),
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -325,7 +339,7 @@ class _RegistroPageState extends State<RegistroPage> {
                                 backgroundColor: ZeroColors.dustRed),
                             onPressed: () => limpiar(),
                             child: const Text(
-                              'Limpiar formularios',
+                              'Limpiar formulario',
                               style: TextStyle(color: Colors.white),
                             ))
                       ],
@@ -349,6 +363,8 @@ class _RegistroPageState extends State<RegistroPage> {
         correoError = correo.isEmpty;
         passw1Error = contrasena.isEmpty;
         passw2Error = rcontrasena.isEmpty;
+        regionError =
+            region == "Seleccione"; // Validar si "Seleccione" está seleccionado
       });
 
       if (!apellidosError &&
@@ -356,7 +372,8 @@ class _RegistroPageState extends State<RegistroPage> {
           !cedulaError &&
           !correoError &&
           !passw1Error &&
-          !passw2Error) {
+          !passw2Error &&
+          !regionError) {
         showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -366,17 +383,18 @@ class _RegistroPageState extends State<RegistroPage> {
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
               content: Text(
-                  "¡La validación del formulario se ha realizado correctamente!\n"
-                  "Cedula: $cedula \n"
-                  "Nombres: $nombres \n"
-                  "Apellidos: $apellidos \n"
-                  "Región: $region \n"
-                  "Género: $genero \n"
-                  "Nace: $fechaNac \n"
-                  "Correo: $correo \n"
-                  "Contraseña: $contrasena\n"
-                  "Contraseña: $rcontrasena\n"
-                  "Checkbox: $checkTerminos"),
+                "¡La validación del formulario se ha realizado correctamente!\n"
+                "Cedula: $cedula \n"
+                "Nombres: $nombres \n"
+                "Apellidos: $apellidos \n"
+                "Región: $region \n"
+                "Género: $genero \n"
+                "Nace: $fechaNac \n"
+                "Correo: $correo \n"
+                "Contraseña: $contrasena\n"
+                "Contraseña: $rcontrasena\n"
+                "Checkbox: $checkTerminos",
+              ),
               actions: [
                 TextButton(
                   onPressed: () {
@@ -397,6 +415,8 @@ class _RegistroPageState extends State<RegistroPage> {
         correoError = correo.isEmpty;
         passw1Error = contrasena.isEmpty;
         passw2Error = rcontrasena.isEmpty;
+        regionError =
+            region == "Seleccione"; // Validar si "Seleccione" está seleccionado
       });
     }
   }
@@ -409,13 +429,13 @@ class _RegistroPageState extends State<RegistroPage> {
     passw2Controller.clear();
     cedulaController.clear();
     setState(() {
-      region = "Seleccione";
-      apellidosError = apellidos.isEmpty;
-      nombresError = nombres.isEmpty;
-      cedulaError = cedula.isEmpty;
-      correoError = correo.isEmpty;
-      passw1Error = contrasena.isEmpty;
-      passw2Error = rcontrasena.isEmpty;
+      regionError = false;
+      apellidosError = false;
+      nombresError = false;
+      cedulaError = false;
+      correoError = false;
+      passw1Error = false;
+      passw2Error = false;
     });
   }
 }
