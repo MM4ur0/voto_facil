@@ -23,8 +23,24 @@ class _RegistroPageState extends State<RegistroPage> {
   String contrasena = "";
   String rcontrasena = "";
   bool checkTerminos = false;
+  bool apellidosError = false;
+  bool nombresError = false;
+  bool cedulaError = false;
+  bool correoError = false;
+  bool passw1Error = false;
+  bool passw2Error = false;
+  bool mostrarError = false;
   final key = GlobalKey<FormState>();
-  final textController = TextEditingController();
+  final apellidosController = TextEditingController();
+  final nombresController = TextEditingController();
+
+  @override
+  void dispose() {
+    apellidosController.dispose(); // Liberar el controlador de apellidos
+    nombresController.dispose(); // Liberar el controlador de nombres
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,41 +65,59 @@ class _RegistroPageState extends State<RegistroPage> {
                               fontSize: 30, fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 15),
-                        TextBoxIcon(
-                          icon: Icons.badge_outlined,
+                        ZeroTextField.outline(
+                          //suffix: Icons.badge_outlined,
                           inputType: TextInputType.number,
-                          label: 'Cédula de identidad',
-                          hint: 'Ingresa tu número de cédula',
+                          labelText: 'Cédula de identidad',
+                          hintText: 'Ingresa tu número de cédula',
                           errorText: 'Este campo es requerido !',
-                          onSaved: (String value) {
+                          /*onSaved: (String value) {
                             cedula = value;
-                          },
+                          },*/
                         ),
                         const SizedBox(height: 15),
-                        TextBoxLabel(
-                          label: 'Apellidos',
-                          hint: 'Ingresa tus apellidos aquí',
-                          errorText: 'Este campo es requerido !',
-                          onSaved: (String value) {
-                            apellidos = value;
-                          },
-                          radius: 50,
-                        ),
-                        const SizedBox(height: 15),
-                        TextBoxLabel(
-                          label: 'Nombres',
-                          hint: 'Ingresa tus nombres aquí',
-                          errorText: 'Este campo es requerido !',
-                          onSaved: (String value) {
-                            nombres = value;
-                          },
-                        ),
                         ZeroTextField(
-                          hintText: 'Search Component',
-                          controller: textController,
+                          labelText: "Apellidos",
+                          hintText: 'Ingresa tus Apellidos aquí',
+                          errorText: apellidosError
+                              ? 'Este campo es requerido !'
+                              : null,
+                          controller: apellidosController,
                           decoration: const InputDecoration(filled: true),
-                          onChanged: (v) {},
+                          onSaved: (value) {
+                            apellidos = value ?? '';
+                            apellidosError = true;
+                            mostrarError = true;
+                          },
+                          onChanged: (value) {
+                            setState(() {
+                              apellidos = value;
+                              mostrarError = true;
+                              //apellidosError = true;
+                            });
+                          },
                         ),
+                        const SizedBox(height: 15),
+                        ZeroTextField(
+                            labelText: "Nombres",
+                            hintText: 'Ingresa tus nombres aquí',
+                            controller: nombresController,
+                            decoration: const InputDecoration(filled: true),
+                            errorText: nombresError
+                                ? 'Este campo es requerido !'
+                                : null,
+                            onSaved: (value) {
+                              apellidos = value ?? '';
+                              nombresError = true;
+                              mostrarError = true;
+                            },
+                            onChanged: (value) {
+                              setState(() {
+                                nombres = value;
+                                mostrarError = true;
+                                //apellidosError = true;
+                              });
+                            }),
                         const SizedBox(height: 15),
                         Container(
                           decoration: BoxDecoration(
@@ -189,14 +223,16 @@ class _RegistroPageState extends State<RegistroPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        ElevatedButton(
+                        ZeroButton.primary(
+                            buttonSizeType: ZeroSizeType.large,
+                            buttonRadiusType: ZeroButtonRadiusType.rounded,
                             onPressed: () => submitForm(),
                             child: const Text('Enviar')),
-                        ElevatedButton(
-                            style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Colors.red)),
+                        ZeroButton.primary(
+                            buttonSizeType: ZeroSizeType.large,
+                            buttonRadiusType: ZeroButtonRadiusType.rounded,
+                            style: const ZeroButtonStyle(
+                                backgroundColor: ZeroColors.dustRed),
                             onPressed: () => limpiar(),
                             child: const Text(
                               'Limpiar formularios',
@@ -214,7 +250,7 @@ class _RegistroPageState extends State<RegistroPage> {
 
   submitForm() {
     final state = key.currentState;
-    if (state!.validate()) {
+    if (state!.validate() && !apellidosError && !nombresError) {
       state.save();
       showDialog(
         context: context,
@@ -228,7 +264,7 @@ class _RegistroPageState extends State<RegistroPage> {
                 "¡La validación del formulario se ha realizado correctamente!\n"
                 "Nombres: $nombres \n"
                 "Apellidos: $apellidos \n"
-                "Genero: $genero \n"
+                "Género: $genero \n"
                 "Nace: $fechaNac \n"
                 "Correo: $correo \n"
                 "Contraseña: $contrasena\n"
@@ -245,10 +281,16 @@ class _RegistroPageState extends State<RegistroPage> {
           );
         },
       );
+    } else {
+      setState(() {
+        apellidosError = apellidos.isEmpty;
+        nombresError = nombres.isEmpty;
+      });
     }
   }
 
   limpiar() {
-    textController.clear();
+    nombresController.clear();
+    apellidosController.clear();
   }
 }

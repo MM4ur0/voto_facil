@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 InputDecorationType _defaultDecorationType = InputDecorationType.outline;
 
 ShadedColor _selectedColor = ZeroColors.primary;
+
 bool _customFont = false;
 bool _dark = false;
 
