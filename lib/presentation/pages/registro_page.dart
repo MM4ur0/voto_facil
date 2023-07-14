@@ -17,7 +17,8 @@ class _RegistroPageState extends State<RegistroPage> {
   String apellidos = "";
   String nombres = "";
   String genero = "Masculino";
-  String fechaNac = "Defecto";
+  String fechaNac =
+      '${DateTime.now().day} ${DateTime.now().month} ${DateTime.now().year}';
   String correo = "";
   String region = "Seleccione";
   String contrasena = "";
