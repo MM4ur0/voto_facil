@@ -33,6 +33,10 @@ class _RegistroPageState extends State<RegistroPage> {
   final key = GlobalKey<FormState>();
   final apellidosController = TextEditingController();
   final nombresController = TextEditingController();
+  final correoController = TextEditingController();
+  final cedulaController = TextEditingController();
+  final passw1Controller = TextEditingController();
+  final passw2Controller = TextEditingController();
 
   @override
   void dispose() {
@@ -66,17 +70,37 @@ class _RegistroPageState extends State<RegistroPage> {
                         ),
                         const SizedBox(height: 15),
                         ZeroTextField.outline(
-                          //suffix: Icons.badge_outlined,
-                          inputType: TextInputType.number,
-                          labelText: 'Cédula de identidad',
-                          hintText: 'Ingresa tu número de cédula',
-                          errorText: 'Este campo es requerido !',
-                          /*onSaved: (String value) {
-                            cedula = value;
-                          },*/
-                        ),
+                            suffixIcon: const Icon(
+                              ZeroIcons.idcard,
+                              color: Colors.blueAccent,
+                              size: 17,
+                            ),
+                            inputType: TextInputType.number,
+                            controller: cedulaController,
+                            labelText: 'Cédula de identidad',
+                            hintText: 'Ingresa tu número de cédula',
+                            errorText: cedulaError
+                                ? 'Este campo es requerido !'
+                                : null,
+                            onSaved: (value) {
+                              cedula = value ?? '';
+                              cedulaError = true;
+                              mostrarError = true;
+                            },
+                            onChanged: (value) {
+                              setState(() {
+                                cedula = value;
+                                mostrarError = true;
+                                //apellidosError = true;
+                              });
+                            }),
                         const SizedBox(height: 15),
                         ZeroTextField(
+                          suffixIcon: const Icon(
+                            ZeroIcons.form,
+                            color: Colors.blueAccent,
+                            size: 17,
+                          ),
                           labelText: "Apellidos",
                           hintText: 'Ingresa tus Apellidos aquí',
                           errorText: apellidosError
@@ -99,6 +123,11 @@ class _RegistroPageState extends State<RegistroPage> {
                         ),
                         const SizedBox(height: 15),
                         ZeroTextField(
+                            suffixIcon: const Icon(
+                              ZeroIcons.form,
+                              color: Colors.blueAccent,
+                              size: 17,
+                            ),
                             labelText: "Nombres",
                             hintText: 'Ingresa tus nombres aquí',
                             controller: nombresController,
@@ -168,39 +197,83 @@ class _RegistroPageState extends State<RegistroPage> {
                             fontSize: 30, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 15),
-                      TextBoxIcon(
-                        icon: Icons.email_outlined,
-                        inputType: TextInputType.emailAddress,
-                        label: 'Correo Eletrónico',
-                        hint: 'ejemplo@email.com',
-                        errorText: 'Este campo es requerido !',
-                        onSaved: (String value) {
-                          correo = value;
-                        },
-                      ),
-                      const SizedBox(height: 15),
-                      TextBoxIcon(
-                          icon: Icons.lock_outlined,
-                          inputType: TextInputType.number,
-                          obscure: true,
-                          label: 'Contraseña',
-                          hint: 'Ingresa la contraseña para el acceso',
-                          errorText: 'Este campo es requerido !',
-                          onSaved: (String value) {
-                            contrasena = value;
+                      ZeroTextField(
+                          suffixIcon: const Icon(
+                            ZeroIcons.mail,
+                            color: Colors.blueAccent,
+                            size: 17,
+                          ),
+                          labelText: 'Correo Eletrónico',
+                          hintText: 'ejemplo@email.com',
+                          controller: correoController,
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: const InputDecoration(filled: true),
+                          errorText:
+                              correoError ? 'Este campo es requerido !' : null,
+                          onSaved: (value) {
+                            correo = value ?? '';
+                            correoError = true;
+                            mostrarError = true;
+                          },
+                          onChanged: (value) {
+                            setState(() {
+                              correo = value;
+                              mostrarError = true;
+                              //apellidosError = true;
+                            });
                           }),
                       const SizedBox(height: 15),
-                      TextBoxIcon(
-                          icon: Icons.lock_outlined,
-                          inputType: TextInputType.number,
-                          obscure: true,
-                          label: 'Repetir contraseña',
-                          hint: 'Repite la contraseña para el acceso',
-                          errorText: 'Este campo es requerido !',
-                          onSaved: (String value) {
-                            rcontrasena = value;
+                      ZeroTextField(
+                          suffixIcon: const Icon(
+                            ZeroIcons.lock,
+                            color: Colors.blueAccent,
+                            size: 17,
+                          ),
+                          labelText: 'Contraseña',
+                          hintText: 'Ingresa la contraseña para el acceso',
+                          controller: passw1Controller,
+                          keyboardType: TextInputType.number,
+                          decoration: const InputDecoration(filled: true),
+                          errorText:
+                              passw1Error ? 'Este campo es requerido !' : null,
+                          onSaved: (value) {
+                            contrasena = value ?? '';
+                            passw1Error = true;
+                            mostrarError = true;
+                          },
+                          onChanged: (value) {
+                            setState(() {
+                              contrasena = value;
+                              mostrarError = true;
+                              //apellidosError = true;
+                            });
                           }),
                       const SizedBox(height: 15),
+                      ZeroTextField(
+                          suffixIcon: const Icon(
+                            ZeroIcons.lock,
+                            color: Colors.blueAccent,
+                            size: 17,
+                          ),
+                          labelText: 'Repetir contraseña',
+                          hintText: 'Repite la contraseña para el acceso',
+                          controller: passw2Controller,
+                          keyboardType: TextInputType.number,
+                          decoration: const InputDecoration(filled: true),
+                          errorText:
+                              passw2Error ? 'Este campo es requerido !' : null,
+                          onSaved: (value) {
+                            rcontrasena = value ?? '';
+                            passw2Error = true;
+                            mostrarError = true;
+                          },
+                          onChanged: (value) {
+                            setState(() {
+                              rcontrasena = value;
+                              mostrarError = true;
+                              //apellidosError = true;
+                            });
+                          }),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -250,7 +323,13 @@ class _RegistroPageState extends State<RegistroPage> {
 
   submitForm() {
     final state = key.currentState;
-    if (state!.validate() && !apellidosError && !nombresError) {
+    if (state!.validate() &&
+        !apellidosError &&
+        !nombresError &&
+        !cedulaError &&
+        !correoError &&
+        !passw1Error &&
+        !passw2Error) {
       state.save();
       showDialog(
         context: context,
@@ -262,6 +341,7 @@ class _RegistroPageState extends State<RegistroPage> {
             ),
             content: Text(
                 "¡La validación del formulario se ha realizado correctamente!\n"
+                "Cedula: $cedula \n"
                 "Nombres: $nombres \n"
                 "Apellidos: $apellidos \n"
                 "Género: $genero \n"
@@ -274,6 +354,7 @@ class _RegistroPageState extends State<RegistroPage> {
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop(); // Cerrar la ventana emergente
+                  limpiar();
                 },
                 child: const Text("Cerrar"),
               ),
@@ -285,6 +366,10 @@ class _RegistroPageState extends State<RegistroPage> {
       setState(() {
         apellidosError = apellidos.isEmpty;
         nombresError = nombres.isEmpty;
+        cedulaError = cedula.isEmpty;
+        correoError = correo.isEmpty;
+        passw1Error = contrasena.isEmpty;
+        passw2Error = rcontrasena.isEmpty;
       });
     }
   }
@@ -292,5 +377,17 @@ class _RegistroPageState extends State<RegistroPage> {
   limpiar() {
     nombresController.clear();
     apellidosController.clear();
+    correoController.clear();
+    passw1Controller.clear();
+    passw2Controller.clear();
+    cedulaController.clear();
+    setState(() {
+      apellidosError = apellidos.isEmpty;
+      nombresError = nombres.isEmpty;
+      cedulaError = cedula.isEmpty;
+      correoError = correo.isEmpty;
+      passw1Error = contrasena.isEmpty;
+      passw2Error = rcontrasena.isEmpty;
+    });
   }
 }
