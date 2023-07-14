@@ -19,6 +19,7 @@ class _RegistroPageState extends State<RegistroPage> {
   String genero = "Masculino";
   String fechaNac = "Defecto";
   String correo = "";
+  String region = "Seleccione";
   String contrasena = "";
   String rcontrasena = "";
   bool checkTerminos = false;
@@ -188,6 +189,21 @@ class _RegistroPageState extends State<RegistroPage> {
                           },
                         ),
                         const SizedBox(height: 15),
+                        ZeroDropdown(
+                          labelText: "Seleccione una Región",
+                          items: const [
+                            "Seleccione",
+                            "Costa",
+                            "Sierra",
+                            "Oriente"
+                          ],
+                          value: region,
+                          onChanged: (value) {
+                            setState(() {
+                              region = value;
+                            });
+                          },
+                        ),
                       ],
                     ),
                   ),
@@ -354,6 +370,7 @@ class _RegistroPageState extends State<RegistroPage> {
                   "Cedula: $cedula \n"
                   "Nombres: $nombres \n"
                   "Apellidos: $apellidos \n"
+                  "Región: $region \n"
                   "Género: $genero \n"
                   "Nace: $fechaNac \n"
                   "Correo: $correo \n"
@@ -391,13 +408,14 @@ class _RegistroPageState extends State<RegistroPage> {
     passw1Controller.clear();
     passw2Controller.clear();
     cedulaController.clear();
-    /*setState(() {
+    setState(() {
+      region = "Seleccione";
       apellidosError = apellidos.isEmpty;
       nombresError = nombres.isEmpty;
       cedulaError = cedula.isEmpty;
       correoError = correo.isEmpty;
       passw1Error = contrasena.isEmpty;
       passw2Error = rcontrasena.isEmpty;
-    });*/
+    });
   }
 }
