@@ -1,6 +1,5 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_text_box/flutter_text_box.dart';
 import 'package:voto_facil/presentation/widgets/registro/checkbox_button.dart';
 import 'package:voto_facil/presentation/widgets/registro/date_picker.dart';
 import 'package:voto_facil/presentation/widgets/registro/radio_button.dart';
@@ -29,7 +28,12 @@ class _RegistroPageState extends State<RegistroPage> {
   bool correoError = false;
   bool passw1Error = false;
   bool passw2Error = false;
-  bool mostrarError = false;
+  bool mostrarError1 = false;
+  bool mostrarError2 = false;
+  bool mostrarError3 = false;
+  bool mostrarError4 = false;
+  bool mostrarError5 = false;
+  bool mostrarError6 = false;
   final key = GlobalKey<FormState>();
   final apellidosController = TextEditingController();
   final nombresController = TextEditingController();
@@ -37,6 +41,8 @@ class _RegistroPageState extends State<RegistroPage> {
   final cedulaController = TextEditingController();
   final passw1Controller = TextEditingController();
   final passw2Controller = TextEditingController();
+
+  _RegistroPageState();
 
   @override
   void dispose() {
@@ -69,13 +75,13 @@ class _RegistroPageState extends State<RegistroPage> {
                               fontSize: 30, fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 15),
-                        ZeroTextField.outline(
+                        ZeroTextField(
                             suffixIcon: const Icon(
                               ZeroIcons.idcard,
                               color: Colors.blueAccent,
                               size: 17,
                             ),
-                            inputType: TextInputType.number,
+                            keyboardType: TextInputType.number,
                             controller: cedulaController,
                             labelText: 'Cédula de identidad',
                             hintText: 'Ingresa tu número de cédula',
@@ -85,13 +91,12 @@ class _RegistroPageState extends State<RegistroPage> {
                             onSaved: (value) {
                               cedula = value ?? '';
                               cedulaError = true;
-                              mostrarError = true;
+                              mostrarError1 = true;
                             },
                             onChanged: (value) {
                               setState(() {
                                 cedula = value;
-                                mostrarError = true;
-                                //apellidosError = true;
+                                mostrarError1 = true;
                               });
                             }),
                         const SizedBox(height: 15),
@@ -111,13 +116,12 @@ class _RegistroPageState extends State<RegistroPage> {
                           onSaved: (value) {
                             apellidos = value ?? '';
                             apellidosError = true;
-                            mostrarError = true;
+                            mostrarError2 = true;
                           },
                           onChanged: (value) {
                             setState(() {
                               apellidos = value;
-                              mostrarError = true;
-                              //apellidosError = true;
+                              mostrarError2 = true;
                             });
                           },
                         ),
@@ -136,15 +140,14 @@ class _RegistroPageState extends State<RegistroPage> {
                                 ? 'Este campo es requerido !'
                                 : null,
                             onSaved: (value) {
-                              apellidos = value ?? '';
+                              nombres = value ?? '';
                               nombresError = true;
-                              mostrarError = true;
+                              mostrarError3 = true;
                             },
                             onChanged: (value) {
                               setState(() {
                                 nombres = value;
-                                mostrarError = true;
-                                //apellidosError = true;
+                                mostrarError3 = true;
                               });
                             }),
                         const SizedBox(height: 15),
@@ -184,6 +187,7 @@ class _RegistroPageState extends State<RegistroPage> {
                             });
                           },
                         ),
+                        const SizedBox(height: 15),
                       ],
                     ),
                   ),
@@ -213,13 +217,12 @@ class _RegistroPageState extends State<RegistroPage> {
                           onSaved: (value) {
                             correo = value ?? '';
                             correoError = true;
-                            mostrarError = true;
+                            mostrarError4 = true;
                           },
                           onChanged: (value) {
                             setState(() {
                               correo = value;
-                              mostrarError = true;
-                              //apellidosError = true;
+                              mostrarError4 = true;
                             });
                           }),
                       const SizedBox(height: 15),
@@ -239,13 +242,12 @@ class _RegistroPageState extends State<RegistroPage> {
                           onSaved: (value) {
                             contrasena = value ?? '';
                             passw1Error = true;
-                            mostrarError = true;
+                            mostrarError5 = true;
                           },
                           onChanged: (value) {
                             setState(() {
                               contrasena = value;
-                              mostrarError = true;
-                              //apellidosError = true;
+                              mostrarError5 = true;
                             });
                           }),
                       const SizedBox(height: 15),
@@ -265,13 +267,12 @@ class _RegistroPageState extends State<RegistroPage> {
                           onSaved: (value) {
                             rcontrasena = value ?? '';
                             passw2Error = true;
-                            mostrarError = true;
+                            mostrarError6 = true;
                           },
                           onChanged: (value) {
                             setState(() {
                               rcontrasena = value;
-                              mostrarError = true;
-                              //apellidosError = true;
+                              mostrarError6 = true;
                             });
                           }),
                       Row(
@@ -323,45 +324,54 @@ class _RegistroPageState extends State<RegistroPage> {
 
   submitForm() {
     final state = key.currentState;
-    if (state!.validate() &&
-        !apellidosError &&
-        !nombresError &&
-        !cedulaError &&
-        !correoError &&
-        !passw1Error &&
-        !passw2Error) {
+    if (state!.validate()) {
       state.save();
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text(
-              "Registro exitoso",
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-            ),
-            content: Text(
-                "¡La validación del formulario se ha realizado correctamente!\n"
-                "Cedula: $cedula \n"
-                "Nombres: $nombres \n"
-                "Apellidos: $apellidos \n"
-                "Género: $genero \n"
-                "Nace: $fechaNac \n"
-                "Correo: $correo \n"
-                "Contraseña: $contrasena\n"
-                "Contraseña: $rcontrasena\n"
-                "Checkbox: $checkTerminos"),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop(); // Cerrar la ventana emergente
-                  limpiar();
-                },
-                child: const Text("Cerrar"),
+      setState(() {
+        apellidosError = apellidos.isEmpty;
+        nombresError = nombres.isEmpty;
+        cedulaError = cedula.isEmpty;
+        correoError = correo.isEmpty;
+        passw1Error = contrasena.isEmpty;
+        passw2Error = rcontrasena.isEmpty;
+      });
+
+      if (!apellidosError &&
+          !nombresError &&
+          !cedulaError &&
+          !correoError &&
+          !passw1Error &&
+          !passw2Error) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text(
+                "Registro exitoso",
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
-            ],
-          );
-        },
-      );
+              content: Text(
+                  "¡La validación del formulario se ha realizado correctamente!\n"
+                  "Cedula: $cedula \n"
+                  "Nombres: $nombres \n"
+                  "Apellidos: $apellidos \n"
+                  "Género: $genero \n"
+                  "Nace: $fechaNac \n"
+                  "Correo: $correo \n"
+                  "Contraseña: $contrasena\n"
+                  "Contraseña: $rcontrasena\n"
+                  "Checkbox: $checkTerminos"),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(); // Cerrar la ventana emergente
+                  },
+                  child: const Text("Cerrar"),
+                ),
+              ],
+            );
+          },
+        );
+      }
     } else {
       setState(() {
         apellidosError = apellidos.isEmpty;
@@ -381,13 +391,13 @@ class _RegistroPageState extends State<RegistroPage> {
     passw1Controller.clear();
     passw2Controller.clear();
     cedulaController.clear();
-    setState(() {
+    /*setState(() {
       apellidosError = apellidos.isEmpty;
       nombresError = nombres.isEmpty;
       cedulaError = cedula.isEmpty;
       correoError = correo.isEmpty;
       passw1Error = contrasena.isEmpty;
       passw2Error = rcontrasena.isEmpty;
-    });
+    });*/
   }
 }
