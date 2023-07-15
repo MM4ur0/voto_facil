@@ -7,13 +7,9 @@ class CandidatosPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.only(
-          top: 15,
-          right: 15,
-          bottom: 15,
-          left: 15,
-        ),
+        padding: const EdgeInsets.all(15),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
               "Nombre del partido político",

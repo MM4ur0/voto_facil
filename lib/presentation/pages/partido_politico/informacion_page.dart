@@ -8,13 +8,9 @@ class InformacionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.only(
-          top: 15,
-          right: 15,
-          bottom: 15,
-          left: 15,
-        ),
+        padding: const EdgeInsets.all(15),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
               "Nombre del partido político",
@@ -28,72 +24,109 @@ class InformacionPage extends StatelessWidget {
               height: 15,
             ),
             const Card(
-              color: Colors.red,
+              elevation: 5,
               child: Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: EdgeInsets.symmetric(vertical: 20),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    RowText(
+                    RowInformacion(
                       title: "Fundación",
                       text: "5 de Abril",
                     ),
-                    RowText(
+                    SizedBox(
+                      height: 5,
+                    ),
+                    RowInformacion(
                       title: "Sede",
                       text: "Guayaquil",
                     ),
-                    RowText(
+                    SizedBox(
+                      height: 5,
+                    ),
+                    RowInformacion(
                       title: "País",
                       text: "Guayaquil",
                     ),
-                    RowText(
+                    SizedBox(
+                      height: 5,
+                    ),
+                    RowInformacion(
                       title: "Posición",
                       text: "Derecha",
                     ),
-                    Column(
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Ideología"),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        ZeroChipFilled(
-                          label: "ideología",
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        ZeroChipFilled(
-                          label: "ideología",
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        ZeroChipFilled(
-                          label: "ideología",
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        ZeroChipFilled(
-                          label: "ideología",
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        ZeroChipFilled(
-                          label: "ideología",
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        ZeroChipFilled(
-                          label: "ideología",
-                        ),
-                        SizedBox(
-                          height: 5,
+                        Column(
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  "Ideología",
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              children: [
+                                ZeroChipFilled(
+                                  label: "ideología",
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                ZeroChipFilled(
+                                  label: "ideología",
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                ZeroChipFilled(
+                                  label: "ideología",
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              children: [
+                                ZeroChipFilled(
+                                  label: "ideología",
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                ZeroChipFilled(
+                                  label: "ideología",
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                ZeroChipFilled(
+                                  label: "ideología",
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                          ],
                         ),
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -105,22 +138,30 @@ class InformacionPage extends StatelessWidget {
   }
 }
 
-class RowText extends StatefulWidget {
+class RowInformacion extends StatefulWidget {
   final String title;
   final String text;
-  const RowText({super.key, required this.title, required this.text});
+  const RowInformacion({super.key, required this.title, required this.text});
 
   @override
-  State<RowText> createState() => _RowTextState();
+  State<RowInformacion> createState() => _RowInformacionState();
 }
 
-class _RowTextState extends State<RowText> {
+class _RowInformacionState extends State<RowInformacion> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [Text("${widget.title} :"), Text("${widget.text}.")],
+      children: [
+        Text(
+          "${widget.title}: ",
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+        ),
+        Text(
+          "${widget.text}.",
+          style: const TextStyle(fontSize: 20),
+        )
+      ],
     );
   }
 }
