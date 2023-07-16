@@ -4,14 +4,12 @@ class CardPerfil extends StatelessWidget {
   final String user;
   final String identification;
   final String zone;
-  final GestureTapCallback onTap;
 
   const CardPerfil({
     super.key,
     required this.user,
     required this.identification,
     required this.zone,
-    required this.onTap,
   });
 
   @override
@@ -23,7 +21,6 @@ class CardPerfil extends StatelessWidget {
         clipBehavior: Clip.hardEdge,
         child: InkWell(
           splashColor: Colors.blue,
-          onTap: onTap,
           child: SizedBox(
             width: 370,
             height: 150,

@@ -1,6 +1,5 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:zog_ui/zog_ui.dart';
 
 class ListadoPartidosPoliticos extends StatefulWidget {
   const ListadoPartidosPoliticos({super.key});
@@ -16,28 +15,43 @@ class _PartidosPoliticosState extends State<ListadoPartidosPoliticos> {
       appBar: AppBar(
         title: const Text("Partidos politicos"),
       ),
-      body: Center(
-        child: Card(
-          // clipBehavior is necessary because, without it, the InkWell's animation
-          // will extend beyond the rounded edges of the [Card] (see https://github.com/flutter/flutter/issues/109776)
-          // This comes with a small performance cost, and you should not set [clipBehavior]
-          // unless you need it.
-          clipBehavior: Clip.hardEdge,
-          child: InkWell(
-            splashColor: Colors.blue.withAlpha(30),
-            onTap: () {
-              Timer(const Duration(milliseconds: 550), () {
-                Navigator.pushNamed(context, '/partido_politico');
-                setState(() {});
-              });
-            },
-            child: const SizedBox(
-              width: 300,
-              height: 100,
-              child: Text('Partido politico'),
-            ),
+      body: SingleChildScrollView(
+        child: Center(
+            child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+          child: Column(
+            children: [
+              ZeroDropdown(onChanged: (value) {}, items: List.empty()),
+              const SizedBox(
+                height: 25,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/partido_politico');
+                },
+                child: const Card(
+                  elevation: 5,
+                  child: Padding(
+                    padding: EdgeInsets.all(25),
+                    child: Row(
+                      children: [
+                        ZeroAvatar.url(
+                            "https://play-lh.googleusercontent.com/qbeCduZblOk80GaY164lw47gIRjXq9QIzSmgFwqQj1PyhNhTWxYR0OqPzm8BumnmJQ"),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          "Nombre del partido político",
+                          style: TextStyle(fontSize: 20),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ),
+        )),
       ),
     );
   }

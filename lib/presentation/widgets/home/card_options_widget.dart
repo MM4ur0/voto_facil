@@ -4,14 +4,12 @@ class CardOptions extends StatelessWidget {
   final IconData icon;
   final String title;
   final String subTitle;
-  final GestureTapCallback onTap;
 
   const CardOptions({
     super.key,
     required this.icon,
     required this.title,
     required this.subTitle,
-    required this.onTap,
   });
 
   @override
@@ -23,7 +21,6 @@ class CardOptions extends StatelessWidget {
         clipBehavior: Clip.hardEdge,
         child: InkWell(
           splashColor: Colors.blue,
-          onTap: onTap,
           child: SizedBox(
             width: 340,
             height: 100,

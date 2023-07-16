@@ -21,7 +21,6 @@ class _PartidoPoliticoState extends State<PartidoPolitico> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const Drawer(),
       appBar: AppBar(
         title: const Text("Partido político"),
       ),

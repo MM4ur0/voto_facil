@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
     '/perfil': (context) => const PerfilPage(),
     '/list_partidos_politicos': (context) => const ListadoPartidosPoliticos(),
     '/partido_politico': (context) => const PartidoPolitico(),
+    '/cometarios': (context) => const CometariosPage(),
   };
 
   @override
