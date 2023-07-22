@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, '/list_partidos_politicos');
+                  Navigator.pushNamed(context, '/voto_home');
                 },
                 child: const CardOptions(
                   title: "Ejercer mi voto",

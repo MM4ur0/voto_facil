@@ -23,9 +23,9 @@ class CardOptions extends StatelessWidget {
           splashColor: Colors.blue,
           child: SizedBox(
             width: 340,
-            height: 100,
+            height: 140,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Padding(
                   padding: const EdgeInsetsDirectional.symmetric(horizontal: 8),
@@ -38,7 +38,7 @@ class CardOptions extends StatelessWidget {
                     Text(
                       title,
                       style: const TextStyle(
-                        fontSize: 34,
+                        fontSize: 26,
                         fontWeight: FontWeight.bold,
                       ),
                       textAlign: TextAlign.left,

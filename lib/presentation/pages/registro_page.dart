@@ -56,6 +56,10 @@ class _RegistroPageState extends State<RegistroPage> {
   void dispose() {
     apellidosController.dispose(); // Liberar el controlador de apellidos
     nombresController.dispose(); // Liberar el controlador de nombres
+    correoController.dispose();
+    cedulaController.dispose();
+    passw1Controller.dispose();
+    passw2Controller.dispose();
     super.dispose();
   }
 
