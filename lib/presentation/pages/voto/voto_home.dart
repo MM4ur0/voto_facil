@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:zog_ui/zog_ui.dart';
 
@@ -14,43 +15,322 @@ class _votohomePageState extends State<votohomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: ZeroColors.primary,
         title: const Text(
           'Ejercer mi Voto',
           style: TextStyle(color: Colors.white),
         ),
       ),
-      body: Container(
-        width: 200.3,
-        color: Colors.amber,
-        // Ajusta el ancho según tus necesidades
+      body: SingleChildScrollView(
+          child: Expanded(
+        // voto1WkR (1:39)
+        //height: double.infinity,
+        //width: double.infinity,
+
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: 75),
-            const Row(
+            Container(
+              // autogrouppbxm54m (JprCwBKNYQzNMHxGASpBxm)
+              padding: const EdgeInsets.fromLTRB(13, 22, 12, 0),
+              width: double.infinity,
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Icon(ZeroIcons.exclamationCircle),
-                  Text('ATENCIÓN'),
-                ]),
-            const SizedBox(height: 16),
-            SlideInDown(
-                duration: Duration(milliseconds: 700),
-                child: Text("Voto es Obligatorio para:7")),
-            ZeroButton.primary(
-              buttonSizeType: ZeroSizeType.large,
-              buttonRadiusType: ZeroButtonRadiusType.rounded,
-              onPressed: () {
-                Navigator.pushNamed(context, '');
-              },
-              child: const Text("Votar"),
+                  Container(
+                    // group24XxM (1:62)
+                    margin: const EdgeInsets.fromLTRB(83, 0, 99, 37),
+                    width: double.infinity,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          child:
+                              const Icon(size: 40, Icons.info_outline_rounded),
+                        ),
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        Container(
+                            // atencinyZT (1:63)
+                            margin: const EdgeInsets.fromLTRB(0, 1, 0, 0),
+                            child: Text(
+                                style: GoogleFonts.inter(
+                                  fontSize: 35, // 20*ffem
+                                  fontWeight: FontWeight.w400,
+                                  height: 1.2125, // 1.2125*ffem/fem
+                                  color: const Color.fromARGB(
+                                      255, 0, 0, 0), // Color(0xffffffff)
+                                ),
+                                'Atención')),
+                        const SizedBox(
+                          width: 8,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    // autogroupe2wttyF (JprCYBygDmBxbM4DNGe2wT)
+                    margin: EdgeInsets.fromLTRB(25, 0, 9, 10),
+                    width: double.infinity,
+                    height: 450,
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          // group19v9F (1:42)
+                          left: 0,
+                          top: 0,
+                          child: Container(
+                            width: 301,
+                            height: 336,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  // noobligatorioS7b (1:43)
+                                  margin:
+                                      const EdgeInsets.fromLTRB(0, 0, 0, 25),
+                                  width: double.infinity,
+                                  child: RichText(
+                                    text: TextSpan(
+                                      style: GoogleFonts.inter(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w400,
+                                        height: 1.2125,
+                                        color:
+                                            const Color.fromARGB(255, 0, 0, 0),
+                                      ),
+                                      children: [
+                                        TextSpan(
+                                          text: 'El voto ',
+                                        ),
+                                        TextSpan(
+                                          text: 'Obligatorio',
+                                          style: GoogleFonts.inter(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: ' para :',
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  // autogrouppkqmAJV (JprCj6qAPsnPKRtTJYpKQm)
+                                  margin: EdgeInsets.fromLTRB(1, 0, 0, 20),
+                                  width: 300,
+                                  height: 201,
+                                  child: Stack(
+                                    children: [
+                                      Positioned(
+                                        // personasentre16y18aosdeedadper (1:44)
+                                        left: 11,
+                                        top: 0,
+                                        child: Align(
+                                          child: SizedBox(
+                                            width: 289,
+                                            height: 201,
+                                            child: Text(
+                                              '-Personas entre 16 y 18 años de edad.',
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        const Positioned(
+                          // verificarelegibilidadparavotar (1:41)
+                          left: 25,
+                          top: 330,
+                          child: Align(
+                            child: SizedBox(
+                              width: 235,
+                              height: 20,
+                              child: Text(
+                                textAlign: TextAlign.center,
+                                'Verificar elegibilidad para votar',
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          // group19v9F (1:42)
+                          left: 0,
+                          top: 90,
+                          bottom: 50,
+                          child: Container(
+                            width: 301,
+                            height: 336,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  // noobligatorioS7b (1:43)
+                                  margin: EdgeInsets.fromLTRB(0, 0, 0, 25),
+                                  width: double.infinity,
+                                  child: RichText(
+                                    text: TextSpan(
+                                      style: GoogleFonts.inter(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w400,
+                                        height: 1.2125,
+                                        color:
+                                            const Color.fromARGB(255, 0, 0, 0),
+                                      ),
+                                      children: [
+                                        TextSpan(
+                                          text: 'El voto es',
+                                        ),
+                                        TextSpan(
+                                          text: ' No',
+                                          style: GoogleFonts.inter(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: ' obligatorio para :',
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  // autogrouppkqmAJV (JprCj6qAPsnPKRtTJYpKQm)
+                                  margin: EdgeInsets.fromLTRB(1, 0, 0, 20),
+                                  width: 300,
+                                  height: 201,
+                                  child: Stack(
+                                    children: [
+                                      const Positioned(
+                                        // personasentre16y18aosdeedadper (1:44)
+                                        left: 11,
+                                        top: 0,
+                                        child: Align(
+                                          child: SizedBox(
+                                            width: 289,
+                                            height: 201,
+                                            child: Text(
+                                              '-Personas entre 16 y 18 años de edad. \n\n-Personas mayores de 65 años. \n\n-Ecuatorian@s que habitan en el exterior\n\n-Integrantes de las Fuerzas Armadas' +
+                                                  '\n\n-Policía Nacional.\n\n-Personas con discapacidad.',
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        // line18uX (1:55)
+                                        left: 0,
+                                        top: 180,
+                                        child: Align(
+                                          child: SizedBox(
+                                            width: 290,
+                                            height: 1,
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                color: Color.fromARGB(
+                                                    255, 158, 156, 156),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  ZeroButton.primary(
+                    buttonRadiusType: ZeroButtonRadiusType.rounded,
+                    width: 150,
+                    height: 50,
+                    child: Text("Verificar"),
+                    onPressed: () {},
+                  ),
+                  Container(
+                    // group23JBj (1:57)
+                    margin: EdgeInsets.fromLTRB(5, 20, 270, 11),
+                    width: double.infinity,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                            // quiz27j (1:59)
+
+                            ),
+                        Container(
+                          // faqYbs (1:58)
+                          margin: EdgeInsets.fromLTRB(0, 0, 0, 11),
+                          child: Text(
+                            'FAQ ',
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  TextButton(
+                    // group21gTB (1:49)
+                    onPressed: () {},
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.zero,
+                    ),
+                    child: Container(
+                      width: double.infinity,
+                      height: 49,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        border: Border.all(color: Color(0xffbdbdbd)),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Quiénes no pueden ejercer Voto? ',
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  TextButton(
+                    // group21gTB (1:49)
+                    onPressed: () {},
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.zero,
+                    ),
+                    child: Container(
+                      width: double.infinity,
+                      height: 49,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        border: Border.all(color: Color(0xffbdbdbd)),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Cuáles son los cargos a escoger ?',
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  )
+                ],
+              ),
             ),
           ],
         ),
-      ),
+      )),
     );
   }
 }
