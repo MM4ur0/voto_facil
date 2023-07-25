@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CandidatosPage extends StatelessWidget {
-  const CandidatosPage({super.key});
+  final String partidoId;
+  const CandidatosPage({super.key, required this.partidoId});
 
   @override
   Widget build(BuildContext context) {

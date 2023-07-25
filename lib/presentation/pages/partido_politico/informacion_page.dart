@@ -1,8 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:voto_facil/config/database/voto_database.dart';
+import 'package:voto_facil/model/partidos_politicos.dart';
 import 'package:zog_ui/components/chip/zero_chip_filled.dart';
 
-class InformacionPage extends StatelessWidget {
-  const InformacionPage({super.key});
+class InformacionPage extends StatefulWidget {
+  final String partidoId;
+  const InformacionPage({super.key, required this.partidoId});
+
+  @override
+  State<InformacionPage> createState() => _InformacionPageState();
+}
+
+class _InformacionPageState extends State<InformacionPage> {
+  PartidosPoliticos? partido;
+  @override
+  void initState() {
+    super.initState();
+    _fetchPartidoData();
+  }
+
+  void _fetchPartidoData() async {
+    // Assuming 'widget.partidoId' is the ID you want to fetch from the database
+    int partidoId = int.parse(widget.partidoId);
+
+    PartidosPoliticos? partido = await VotoDataBase.getPartidoPorId(partidoId);
+
+    setState(() {
+      this.partido = partido;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,53 +39,69 @@ class InformacionPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
-                "Nombre del partido político",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              Text(
+                textAlign: TextAlign.center,
+                "${partido?.nombre}",
+                style:
+                    const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
               const SizedBox(
                 height: 15,
               ),
-              Container(height: 150, color: Colors.blue),
+              partido == null
+                  ? Container(
+                      height: 150,
+                      color: Colors.grey.shade100,
+                    )
+                  : SizedBox(
+                      height: 150,
+                      child: Image.asset(
+                        'images/partidos/${partido!.imagen}',
+                        fit: BoxFit.contain,
+                      ),
+                    ),
               const SizedBox(
                 height: 15,
               ),
-              const Card(
+              const SizedBox(
+                height: 15,
+              ),
+              Card(
                 elevation: 5,
                 child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 20),
+                  padding: const EdgeInsets.symmetric(vertical: 20),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       RowInformacion(
-                        title: "Fundación",
-                        text: "5 de Abril",
+                        title: 'fundación',
+                        text: "${partido?.fundacion}",
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       RowInformacion(
                         title: "Sede",
-                        text: "Guayaquil",
+                        text: "${partido?.sede}",
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       RowInformacion(
                         title: "País",
-                        text: "Guayaquil",
+                        text: "${partido?.pais}",
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       RowInformacion(
                         title: "Posición",
-                        text: "Derecha",
+                        text: "${partido?.posicion}",
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
-                      Row(
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Column(

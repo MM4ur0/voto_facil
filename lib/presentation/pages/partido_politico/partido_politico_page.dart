@@ -11,20 +11,24 @@ class PartidoPolitico extends StatefulWidget {
 }
 
 class _PartidoPoliticoState extends State<PartidoPolitico> {
+  late String partidoId;
   int _paginaActual = 0;
-  final List<Widget> _paginas = [
-    const InformacionPage(),
-    const CandidatosPage(),
-    const PlanPage(),
-  ];
 
   @override
   Widget build(BuildContext context) {
+    partidoId = ModalRoute.of(context)?.settings.arguments as String;
+
+    final List<Widget> paginas = [
+      InformacionPage(partidoId: partidoId),
+      CandidatosPage(partidoId: partidoId),
+      PlanPage(partidoId: partidoId),
+    ];
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Partido político"),
+        title: Text("Partido político $partidoId"),
       ),
-      body: _paginas[_paginaActual],
+      body: paginas[_paginaActual],
       bottomNavigationBar: BottomNavigationBar(
         onTap: (index) {
           setState(() {

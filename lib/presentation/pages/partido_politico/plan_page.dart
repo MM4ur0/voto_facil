@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:zog_ui/zog_ui.dart';
 
 class PlanPage extends StatelessWidget {
-  const PlanPage({super.key});
+  final String partidoId;
+  const PlanPage({super.key, required this.partidoId});
 
   @override
   Widget build(BuildContext context) {
