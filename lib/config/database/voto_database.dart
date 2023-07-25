@@ -1,6 +1,7 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:voto_facil/model/candidatos.dart';
+import 'package:voto_facil/model/ideologia.dart';
 import 'package:voto_facil/model/partidos_politicos.dart';
 
 class VotoDataBase {
@@ -24,12 +25,22 @@ class VotoDataBase {
           "('MOVIMIENTO CONSTRUYE','construye.jpg','1 de Noviembre de 1995','Izquierda', 'Quito','Ecuador'),"
           "('MOVIMIENTO RENOVACIÓN TOTAL, RETO','reto.jpg','4 de Marzo de 2002','Izquierda', 'Quito','Ecuador')");
       db.execute("INSERT INTO ideologia(idea, idpartido) VALUES"
-          "('Autonomismo', '1'), ('Liberalismo', '1'), ('Conservadurismo', '1'),"
-          "('Atrapalo todo','2'), ('Liberalismo económico', '2'), ('Democracia Liberal', '2'),"
-          "('Socila Democracia', '3'), ('SocioLiberalismo', '3'), ('Atrapalo todo', '3'),"
-          "('Neoliberalismo', '4'), ('Democracia Cristiana', '4'), ('Conservadurismo social', '4'),"
-          "('Indigenismo', '5'), ('Ecologísmo Radical', '5'), ('Plurinacionalismo', '5'),"
-          "('Populismo', '6'), ('Personalismo', '6'), ('Atrapalo todo', '6');");
+          "('Populismo', '1'), ('Nacionalismo', '1'), ('Marxismo', '1'),"
+          "('Socialdemocracia', '1'), ('Socialismo', '1'), ('Centrismo', '1'),"
+          "('Progresismo', '2'), ('Antineoliberalismo', '2'), ('Soberanismo', '2'),"
+          "('Bolivarianismo', '2'), ('Ecologismo', '2'), ('Progresismo', '2'),"
+          "('Progresismo', '3'), ('Antineoliberalismo', '3'), ('Soberanismo', '3'),"
+          "('Latinoamericanismo', '3'), ('Antiimperialismo', '3'), ('Socialismo', '3'),"
+          "('Neoliberalismo', '4'), ('Conservadurismo', '4'), ('Democracia cristiana', '4'),"
+          "('Populismo', '4'), ('Personalismo', '4'), ('Militarismo', '4'),"
+          "('Socialdemocracia', '5'), ('Socioliberalismo', '5'), ('Liberalismo económico', '5'),"
+          "('Atrapalotodo', '5'), ('Democracia liberal', '5'), ('Ecologismo', '5'),"
+          "('Liberalismo', '6'), ('Democracia liberal', '6'), ('Ecologismo', '6'),"
+          "('Populismo', '6'), ('Personalismo', '6'), ('Atrapalo todo', '6'),"
+          "('Pluralismo', '7'), ('Democracia liberal', '7'), ('Populismo', '7'),"
+          "('Progesismo', '7'), ('Personalismo', '7'), ('Soberanismo', '7'),"
+          "('Personalismo', '8'), ('Partido atrapalotodo', '8'), ('Liberalismo', '8'),"
+          "('Socialismo', '8'), ('Centrismo', '8'), ('Ecologismo', '8');");
       db.execute(
           "INSERT INTO candidato(imagen, nombre, cargo, idPartido) VALUES"
           "('yaku.jpg', 'Yaku Perez', 'Presidente', '1'),"
@@ -91,7 +102,7 @@ class VotoDataBase {
     Database db = await _openDB();
     final List<Map<String, dynamic>> canditatosMap = await db.query(
       "candidato",
-      where: 'idPartido = ?',
+      where: 'idpartido = ?',
       whereArgs: [id],
     );
     return List.generate(
@@ -102,6 +113,22 @@ class VotoDataBase {
               nombre: canditatosMap[i]['nombre'],
               cargo: canditatosMap[i]['cargo'],
               idPartido: canditatosMap[i]['idpartido'],
+            ));
+  }
+
+  static Future<List<Ideologia>> getIdeologia(int id) async {
+    Database db = await _openDB();
+    final List<Map<String, dynamic>> ideologiaMap = await db.query(
+      "ideologia",
+      where: 'idpartido = ?',
+      whereArgs: [id],
+    );
+    return List.generate(
+        ideologiaMap.length,
+        (i) => Ideologia(
+              id: ideologiaMap[i]['id'],
+              idea: ideologiaMap[i]['idea'],
+              idpartido: ideologiaMap[i]['idpartido'],
             ));
   }
 }

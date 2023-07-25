@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:voto_facil/config/database/voto_database.dart';
 import 'package:voto_facil/model/partidos_politicos.dart';
 import 'package:zog_ui/zog_ui.dart';
@@ -29,6 +30,24 @@ class _PlanPageState extends State<PlanPage> {
     });
   }
 
+  void _launchURL() async {
+    Uri uri = Uri(
+        scheme: 'https',
+        host: 'conocetucandidato.cne.gob.ec',
+        path: '/binomios_presidenciales');
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      throw 'No se pudo abrir el enlace ${uri.toString()}';
+    }
+  }
+
+  static double miCalificacion = 0;
+  static double calificado = 0;
+  static double calificacionActual = 8;
+  double ratingValue = 0;
+  bool flag = false;
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -39,6 +58,7 @@ class _PlanPageState extends State<PlanPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
+                textAlign: TextAlign.center,
                 "${partido?.nombre}",
                 style:
                     const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
@@ -51,17 +71,47 @@ class _PlanPageState extends State<PlanPage> {
                       height: 150,
                       color: Colors.grey.shade100,
                     )
-                  : SizedBox(
-                      height: 150,
-                      child: Image.asset(
-                        'images/partidos/${partido!.imagen}',
-                        fit: BoxFit.contain,
-                      ),
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 100,
+                          child: Image.asset(
+                            'images/partidos/${partido!.imagen}',
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 25,
+                        ),
+                        ElevatedButton(
+                          onPressed: () async {
+                            _launchURL();
+                          }, // Usamos la función _launchURL para abrir el enlace
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 12),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                          child: const Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                Icons.picture_as_pdf_outlined,
+                                size: 50,
+                              ),
+                              SizedBox(width: 8),
+                              Text('Ver plan de trabajo'),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
               const SizedBox(
                 height: 15,
               ),
-              const Text("Plan de trabajo"),
               const SizedBox(
                 height: 15,
               ),
@@ -69,15 +119,34 @@ class _PlanPageState extends State<PlanPage> {
               const SizedBox(
                 height: 15,
               ),
-              const ZeroRating(sizeType: ZeroSizeType.large),
+              ZeroRating(
+                sizeType: ZeroSizeType.large,
+                initialValue: ratingValue,
+                isDisabled: flag,
+                onRatingUpdate: (value) {
+                  miCalificacion = value;
+                  ratingValue = value;
+                  setState(() {});
+                },
+              ),
               const SizedBox(
                 height: 15,
               ),
               ZeroButton.primary(
                 buttonSizeType: ZeroSizeType.large,
                 buttonRadiusType: ZeroButtonRadiusType.rounded,
+                isDisabled: flag,
                 onPressed: () {
-                  Navigator.pushNamed(context, '/registro');
+                  miCalificacion = ratingValue;
+                  setState(() {
+                    flag = true;
+                    calificado = calificacionActual + ((miCalificacion / 10));
+                    if (calificado == 10) {
+                      calificado = 10;
+                    } else {
+                      calificacionActual = calificado;
+                    }
+                  });
                 },
                 child: const Text("Enviar calificación"),
               ),
@@ -95,10 +164,10 @@ class _PlanPageState extends State<PlanPage> {
                       border: Border.all(color: Colors.green, width: 5),
                     ),
                     padding: const EdgeInsets.all(10),
-                    child: const Text(
-                      "10 / 10",
-                      style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    child: Text(
+                      '${calificado == 0 ? '$calificacionActual' : calificacionActual >= 10 ? '10' : '$calificado'}  / 10',
+                      style: const TextStyle(
+                          fontSize: 24, fontWeight: FontWeight.bold),
                     ),
                   ),
                   const SizedBox(

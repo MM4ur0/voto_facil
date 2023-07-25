@@ -1,12 +1,13 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:voto_facil/config/database/voto_database.dart';
+import 'package:voto_facil/model/ideologia.dart';
 import 'package:voto_facil/model/partidos_politicos.dart';
 import 'package:zog_ui/components/chip/zero_chip_filled.dart';
 
 class InformacionPage extends StatefulWidget {
   final String partidoId;
-  const InformacionPage({super.key, required this.partidoId});
+  const InformacionPage({Key? key, required this.partidoId}) : super(key: key);
 
   @override
   State<InformacionPage> createState() => _InformacionPageState();
@@ -14,10 +15,19 @@ class InformacionPage extends StatefulWidget {
 
 class _InformacionPageState extends State<InformacionPage> {
   PartidosPoliticos? partido;
+  List<Ideologia> ideologia = [];
+
   @override
   void initState() {
     super.initState();
     _fetchPartidoData();
+    _cargarIdeologia();
+  }
+
+  _cargarIdeologia() async {
+    int partidoId = int.parse(widget.partidoId);
+    ideologia = await VotoDataBase.getIdeologia(partidoId);
+    setState(() {});
   }
 
   void _fetchPartidoData() async {
@@ -32,20 +42,25 @@ class _InformacionPageState extends State<InformacionPage> {
 
   @override
   Widget build(BuildContext context) {
+    // Comprobar si la lista está vacía
+    bool isLoading = ideologia.isEmpty;
+
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(15),
         child: FadeIn(
-          duration: Duration(seconds: 1),
+          duration: const Duration(seconds: 1),
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  textAlign: TextAlign.center,
                   "${partido?.nombre}",
+                  textAlign: TextAlign.center,
                   style: const TextStyle(
-                      fontSize: 25, fontWeight: FontWeight.bold),
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(
                   height: 15,
@@ -76,7 +91,7 @@ class _InformacionPageState extends State<InformacionPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         RowInformacion(
-                          title: 'fundación',
+                          title: 'Fundación',
                           text: "${partido?.fundacion}",
                         ),
                         const SizedBox(
@@ -103,69 +118,80 @@ class _InformacionPageState extends State<InformacionPage> {
                         const SizedBox(
                           height: 10,
                         ),
-                        const Row(
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Column(
                               children: [
-                                Row(
+                                const Row(
                                   children: [
                                     Text(
                                       "Ideología",
                                       style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold),
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ],
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 5,
                                 ),
-                                Row(
-                                  children: [
-                                    ZeroChipFilled(
-                                      label: "ideología",
-                                    ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    ZeroChipFilled(
-                                      label: "ideología",
-                                    ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    ZeroChipFilled(
-                                      label: "ideología",
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
+                                // Comprobar si la lista está vacía y mostrar un indicador de carga o una IU alternativa
+                                if (isLoading)
+                                  const CircularProgressIndicator()
+                                else
+                                  Row(
+                                    children: [
+                                      if (ideologia.isNotEmpty)
+                                        ZeroChipFilled(
+                                          label: ideologia[0].idea,
+                                        ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      if (ideologia.length > 1)
+                                        ZeroChipFilled(
+                                          label: ideologia[1].idea,
+                                        ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      if (ideologia.length > 2)
+                                        ZeroChipFilled(
+                                          label: ideologia[2].idea,
+                                        ),
+                                    ],
+                                  ),
+                                const SizedBox(
                                   height: 10,
                                 ),
                                 Row(
                                   children: [
-                                    ZeroChipFilled(
-                                      label: "ideología",
-                                    ),
-                                    SizedBox(
+                                    if (ideologia.length > 3)
+                                      ZeroChipFilled(
+                                        label: ideologia[3].idea,
+                                      ),
+                                    const SizedBox(
                                       width: 5,
                                     ),
-                                    ZeroChipFilled(
-                                      label: "ideología",
-                                    ),
-                                    SizedBox(
+                                    if (ideologia.length > 4)
+                                      ZeroChipFilled(
+                                        label: ideologia[4].idea,
+                                      ),
+                                    const SizedBox(
                                       width: 5,
                                     ),
-                                    ZeroChipFilled(
-                                      label: "ideología",
-                                    ),
-                                    SizedBox(
+                                    if (ideologia.length > 5)
+                                      ZeroChipFilled(
+                                        label: ideologia[5].idea,
+                                      ),
+                                    const SizedBox(
                                       height: 5,
                                     ),
                                   ],
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
                               ],
@@ -175,7 +201,7 @@ class _InformacionPageState extends State<InformacionPage> {
                       ],
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
@@ -185,29 +211,28 @@ class _InformacionPageState extends State<InformacionPage> {
   }
 }
 
-class RowInformacion extends StatefulWidget {
+class RowInformacion extends StatelessWidget {
   final String title;
   final String text;
-  const RowInformacion({super.key, required this.title, required this.text});
+  const RowInformacion({
+    Key? key,
+    required this.title,
+    required this.text,
+  }) : super(key: key);
 
-  @override
-  State<RowInformacion> createState() => _RowInformacionState();
-}
-
-class _RowInformacionState extends State<RowInformacion> {
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          "${widget.title}: ",
+          "$title: ",
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
         ),
         Text(
-          "${widget.text}.",
+          text,
           style: const TextStyle(fontSize: 20),
-        )
+        ),
       ],
     );
   }
