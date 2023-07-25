@@ -26,7 +26,7 @@ class _PartidoPoliticoState extends State<PartidoPolitico> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Partido político $partidoId"),
+        title: const Text("Partido político"),
       ),
       body: paginas[_paginaActual],
       bottomNavigationBar: BottomNavigationBar(

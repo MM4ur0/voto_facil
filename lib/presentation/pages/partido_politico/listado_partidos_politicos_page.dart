@@ -82,7 +82,7 @@ class _PartidosPoliticosState extends State<ListadoPartidosPoliticos> {
                         );
                       },
                       child: FadeIn(
-                        duration: const Duration(seconds: 3),
+                        duration: const Duration(seconds: 2),
                         child: Card(
                           elevation: 5,
                           child: Padding(

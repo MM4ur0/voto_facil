@@ -1,9 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:voto_facil/config/database/voto_database.dart';
+import 'package:voto_facil/model/partidos_politicos.dart';
 import 'package:zog_ui/zog_ui.dart';
 
-class PlanPage extends StatelessWidget {
+class PlanPage extends StatefulWidget {
   final String partidoId;
   const PlanPage({super.key, required this.partidoId});
+
+  @override
+  State<PlanPage> createState() => _PlanPageState();
+}
+
+class _PlanPageState extends State<PlanPage> {
+  PartidosPoliticos? partido;
+  @override
+  void initState() {
+    super.initState();
+    _fetchPartidoData();
+  }
+
+  void _fetchPartidoData() async {
+    int partidoId = int.parse(widget.partidoId);
+
+    PartidosPoliticos? partido = await VotoDataBase.getPartidoPorId(partidoId);
+
+    setState(() {
+      this.partido = partido;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,14 +38,26 @@ class PlanPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
-                "Nombre del partido político",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              Text(
+                "${partido?.nombre}",
+                style:
+                    const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
               const SizedBox(
                 height: 15,
               ),
-              Container(height: 150, color: Colors.blue),
+              partido == null
+                  ? Container(
+                      height: 150,
+                      color: Colors.grey.shade100,
+                    )
+                  : SizedBox(
+                      height: 150,
+                      child: Image.asset(
+                        'images/partidos/${partido!.imagen}',
+                        fit: BoxFit.contain,
+                      ),
+                    ),
               const SizedBox(
                 height: 15,
               ),
