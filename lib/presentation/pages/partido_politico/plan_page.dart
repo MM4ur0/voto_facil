@@ -32,12 +32,14 @@ class _PlanPageState extends State<PlanPage> {
   }
 
   void _launchURL() async {
-    Uri uri = Uri(
-        scheme: 'https',
-        host: 'conocetucandidato.cne.gob.ec',
-        path: '/binomios_presidenciales');
+    Uri uri = Uri.parse(
+        'https://conocetucandidato.cne.gob.ec/binomios_presidenciales');
+
     if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
+      await launchUrl(
+        uri,
+        mode: LaunchMode.externalApplication,
+      );
     } else {
       throw 'No se pudo abrir el enlace ${uri.toString()}';
     }
