@@ -56,7 +56,8 @@ class PopupUser_valido extends StatelessWidget {
                       buttonSizeType: ZeroSizeType.large,
                       buttonRadiusType: ZeroButtonRadiusType.rounded,
                       onPressed: () {
-                        //Navigator.pushNamed(context, '/registro');
+                        Navigator.pop(context);
+                        Navigator.pushNamed(context, '/voto_votar');
                       },
                       child: const Text("Aceptar"),
                     )

@@ -319,7 +319,9 @@ class _votohomePageState extends State<votohomePage> {
             ),
             TextButton(
               // group21gTB (1:49)
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/votar');
+              },
               style: TextButton.styleFrom(
                 padding: EdgeInsets.zero,
               ),
