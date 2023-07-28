@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:voto_facil/presentation/widgets/home/card_options_widget.dart';
 import 'package:voto_facil/presentation/widgets/home/card_perfil_widget.dart';
+import 'package:zog_ui/zog_ui.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,7 +15,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Inicio"),
+        backgroundColor: ZeroColors.primary,
+        title: const Text("Inicio", style: TextStyle(color: Colors.white)),
       ),
       body: SingleChildScrollView(
         child: Center(

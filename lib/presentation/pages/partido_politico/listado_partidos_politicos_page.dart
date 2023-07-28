@@ -46,7 +46,12 @@ class _PartidosPoliticosState extends State<ListadoPartidosPoliticos> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Partidos políticos"),
+        iconTheme: const IconThemeData(color: Colors.white),
+        backgroundColor: ZeroColors.primary,
+        title: const Text(
+          "Partidos políticos",
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: Center(
         child: Padding(

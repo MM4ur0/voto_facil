@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:voto_facil/presentation/pages/partido_politico/candidatos_page.dart';
 import 'package:voto_facil/presentation/pages/partido_politico/informacion_page.dart';
 import 'package:voto_facil/presentation/pages/partido_politico/plan_page.dart';
+import 'package:zog_ui/zog_ui.dart';
 
 class PartidoPolitico extends StatefulWidget {
   const PartidoPolitico({super.key});
@@ -26,7 +27,12 @@ class _PartidoPoliticoState extends State<PartidoPolitico> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Partido político"),
+        iconTheme: const IconThemeData(color: Colors.white),
+        title: const Text(
+          "Partido político",
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: ZeroColors.primary,
       ),
       body: paginas[_paginaActual],
       bottomNavigationBar: BottomNavigationBar(

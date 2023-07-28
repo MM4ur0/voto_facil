@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:zog_ui/zog_ui.dart';
 
 class Comment {
   final String username;
@@ -69,7 +70,12 @@ class _CometariosPageState extends State<CometariosPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Comentarios"),
+        iconTheme: const IconThemeData(color: Colors.white),
+        title: const Text(
+          "Comentarios",
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: ZeroColors.primary,
       ),
       body: SafeArea(
         child: Padding(
