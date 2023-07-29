@@ -17,7 +17,7 @@ class CardOptions extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 15),
       child: Card(
-        elevation: 5,
+        elevation: 3,
         clipBehavior: Clip.hardEdge,
         child: InkWell(
           splashColor: Colors.blue,
