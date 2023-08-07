@@ -44,12 +44,14 @@ class PopupUser_valido extends StatelessWidget {
                       child: Text(
                         "Verificado para Votar",
                         style: TextStyle(
-                          fontSize: 15,
+                          fontFamily: AutofillHints.jobTitle,
+                          fontSize: 20,
                           decoration: TextDecoration.none,
                           color: Colors.black, // Color del texto
                         ),
                       ),
                     ),
+                    const SizedBox(height: 10),
                     ZeroButton.primary(
                       height: 50,
                       width: 120,

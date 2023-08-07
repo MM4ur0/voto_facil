@@ -11,7 +11,7 @@ class cardpartidos extends StatelessWidget {
       width: double.infinity,
       height: 640,
       decoration: BoxDecoration(
-        color: Color(0xffffffff),
+        color: Color.fromARGB(255, 230, 230, 230),
       ),
       child: Container(
         // group5U2u (127:204)

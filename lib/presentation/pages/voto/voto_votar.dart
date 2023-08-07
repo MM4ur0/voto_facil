@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart'; // Asegúrate de tener esta imp
 import 'package:zog_ui/zog_ui.dart';
 import 'package:voto_facil/presentation/widgets/voto/timer_widget.dart';
 import 'package:voto_facil/presentation/widgets/voto/card_partidos.dart';
+import 'package:voto_facil/presentation/widgets/voto/voto_nulo.dart';
 
 class votovotarPage extends StatefulWidget {
   const votovotarPage({Key? key}) : super(key: key);
@@ -164,7 +165,14 @@ class _votovotarPageState extends State<votovotarPage> {
                                 color: Color(0xffffffff),
                               ),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return Votonuloselect();
+                                },
+                              );
+                            },
                           ),
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -197,7 +205,18 @@ class _votovotarPageState extends State<votovotarPage> {
                       ),
                     ),
                   ),
-                  cardpartidos()
+                  cardpartidos(),
+                  SizedBox(
+                    height: 60,
+                  ),
+                  cardpartidos(),
+                  SizedBox(
+                    height: 60,
+                  ),
+                  cardpartidos(),
+                  SizedBox(
+                    height: 60,
+                  )
                 ])));
   }
 }
