@@ -77,7 +77,8 @@ class Votonuloselect extends StatelessWidget {
                           buttonRadiusType: ZeroButtonRadiusType.rounded,
                           onPressed: () {
                             Navigator.pop(context);
-                            Navigator.pushNamed(context, '/voto_votar');
+                            Navigator.pushReplacementNamed(context, '/home');
+                            Navigator.pop(context);
                           },
                           child: const Text("Aceptar"),
                         ),

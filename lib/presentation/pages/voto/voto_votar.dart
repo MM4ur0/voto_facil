@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart'; // Asegúrate de tener esta importación
 import 'package:zog_ui/zog_ui.dart';
@@ -47,28 +49,59 @@ class _votovotarPageState extends State<votovotarPage> {
                             ),
                             child: Center(
                               child: Row(children: [
+                                SizedBox(
+                                  width: 15,
+                                ),
+                                Icon(size: 32, Icons.contact_page),
+                                SizedBox(
+                                  width: 20,
+                                ),
                                 Text(
-                                  'Tiempo Disponible : ',
+                                  'Papeletas',
                                   style: GoogleFonts.inter(
-                                    fontSize: 20,
+                                    fontSize: 25,
                                     fontWeight: FontWeight.w400,
                                     height: 1.2125,
                                     color: Color(0xff5d5d5d),
                                   ),
                                 ),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                Icon(size: 32, Icons.timer),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                MyTimerWidget(),
                               ]),
                             ),
                           ),
                         ]),
                   ),
+                  Expanded(
+                      child: Container(
+                    margin: EdgeInsets.only(top: 7),
+                    child: RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        style: GoogleFonts.inter(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400,
+                          height: 1.2125,
+                          color: Color.fromARGB(255, 44, 44, 44),
+                        ),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text:
+                                'Recuerde que al Seleccionar una Papeleta,\n Tendra un Tiempo Limite de ',
+                          ),
+                          TextSpan(
+                            text: '10 min',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors
+                                  .black, // Puedes ajustar el color si lo deseas
+                            ),
+                          ),
+                          TextSpan(
+                            text: ' para realizar el proceso de votacion',
+                          ),
+                        ],
+                      ),
+                    ),
+                  )),
                   Container(
                     margin: EdgeInsets.only(bottom: 16),
                     width: double.infinity,
@@ -86,7 +119,10 @@ class _votovotarPageState extends State<votovotarPage> {
                   ),
 
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      //p(context);
+                      Navigator.pushNamed(context, "/papeleta");
+                    },
                     style: TextButton.styleFrom(
                       padding: EdgeInsets.zero,
                     ),
@@ -102,30 +138,39 @@ class _votovotarPageState extends State<votovotarPage> {
                           border: Border.all(),
                           borderRadius: BorderRadius.circular(5),
                         ),
-                        child: Column(
+                        child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            SizedBox(height: 16), // Espaciado
-                            Text(
-                              'Papeleta de Presidente',
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.inter(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w400,
-                                height: 1.2125,
-                                color: Color(0xff000000),
-                              ),
-                            ),
-                            Text(
-                              'Se elige un Binomio Presidencial',
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.inter(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                height: 1.2125,
-                                color: Color(0xff5d5d5d),
-                              ),
-                            ),
+                            //SizedBox(height: 20), // Espaciado
+                            Icon(size: 80, Icons.contact_page),
+                            SizedBox(width: 25),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(height: 65),
+                                Text(
+                                  'Papeleta de Presidente',
+                                  textAlign: TextAlign.center,
+                                  style: GoogleFonts.inter(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w400,
+                                    height: 1.2125,
+                                    color: Color(0xff000000),
+                                  ),
+                                ),
+                                SizedBox(height: 6),
+                                Text(
+                                  'Se elige un Binomio Presidencial',
+                                  textAlign: TextAlign.center,
+                                  style: GoogleFonts.inter(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                    height: 1.2125,
+                                    color: Color(0xff5d5d5d),
+                                  ),
+                                ),
+                              ],
+                            )
                           ],
                         ),
                       ),
@@ -149,31 +194,6 @@ class _votovotarPageState extends State<votovotarPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          ZeroButton.primary(
-                            buttonRadiusType: ZeroButtonRadiusType.rounded,
-                            style:
-                                ZeroButtonStyle(backgroundColor: Colors.black),
-                            width: 180,
-                            height: 40,
-                            child: Text(
-                              'Declarar Voto Nulo',
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.inter(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                height: 1.2125,
-                                color: Color(0xffffffff),
-                              ),
-                            ),
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return Votonuloselect();
-                                },
-                              );
-                            },
-                          ),
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -189,13 +209,13 @@ class _votovotarPageState extends State<votovotarPage> {
                                   child: Container(
                                 margin: EdgeInsets.only(top: 7),
                                 child: Text(
-                                  'Al presionar el botón, declarará Todas las papeletas como voto nulo',
+                                  'Ten en cuenta que son las mismas \nPapeletas de Siempre\n ahora digitales',
                                   textAlign: TextAlign.center,
                                   style: GoogleFonts.inter(
-                                    fontSize: 12,
+                                    fontSize: 15,
                                     fontWeight: FontWeight.w400,
                                     height: 1.2125,
-                                    color: Color(0xff5d5d5d),
+                                    color: Color.fromARGB(255, 44, 44, 44),
                                   ),
                                 ),
                               )),
@@ -205,18 +225,12 @@ class _votovotarPageState extends State<votovotarPage> {
                       ),
                     ),
                   ),
-                  cardpartidos(),
-                  SizedBox(
-                    height: 60,
+                  Image.asset(
+                    'images/voto/pape.png',
+                    height: 220,
+                    width: MediaQuery.of(context).size.width *
+                        0.8, // 80% del ancho del dispositivo
                   ),
-                  cardpartidos(),
-                  SizedBox(
-                    height: 60,
-                  ),
-                  cardpartidos(),
-                  SizedBox(
-                    height: 60,
-                  )
                 ])));
   }
 }

@@ -10,3 +10,4 @@ export 'package:voto_facil/presentation/pages/partido_politico/comentarios_page.
 
 export 'package:voto_facil/presentation/pages/voto/voto_home.dart';
 export 'package:voto_facil/presentation/pages/voto/voto_votar.dart';
+export 'package:voto_facil/presentation/pages/voto/papeleta.dart';

@@ -260,7 +260,10 @@ class _votohomePageState extends State<votohomePage> {
               buttonRadiusType: ZeroButtonRadiusType.rounded,
               width: 150,
               height: 50,
-              child: Text("Verificar"),
+              child: Text(
+                "Verificar",
+                style: TextStyle(fontSize: 18),
+              ),
               onPressed: () {
                 showDialog(
                   context: context,
@@ -287,8 +290,7 @@ class _votohomePageState extends State<votohomePage> {
                     child: Text(
                       'FAQ ',
                       style: GoogleFonts.inter(
-                        fontWeight: FontWeight.bold,
-                      ),
+                          fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                   ),
                 ],
