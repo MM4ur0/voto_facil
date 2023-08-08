@@ -19,26 +19,23 @@ class _HomePageState extends State<HomePage> {
           title: const Text("Inicio", style: TextStyle(color: Colors.white)),
         ),
         body: Stack(children: [
-          Positioned(
-              top: 0,
-              left: 0,
-              child: Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('images/design/head.png'),
-                    fit: BoxFit
-                        .cover, // Esto ajusta la imagen para que cubra todo el Container
-                  ),
-                ),
-                //color: Colors.amber,
-                height: 160,
-                width: MediaQuery.of(context).size.width,
-                /*child: Image.asset(
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('images/design/head.png'),
+                fit: BoxFit
+                    .cover, // Esto ajusta la imagen para que cubra todo el Container
+              ),
+            ),
+            //color: Colors.amber,
+            height: 160,
+            width: MediaQuery.of(context).size.width,
+            /*child: Image.asset(
                           'images/design/footer.png',
                           height: 60,
                           width: MediaQuery.of(context).size.width,
                         )*/
-              )),
+          ),
           SingleChildScrollView(
               child: Center(
             child: Column(
@@ -89,20 +86,17 @@ class _HomePageState extends State<HomePage> {
                     icon: Icons.bar_chart,
                   ),
                 ),
-                Positioned(
-                    bottom: 0,
-                    left: 0,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('images/design/footer.png'),
-                          fit: BoxFit
-                              .fill, // Esto ajusta la imagen para que cubra todo el Container
-                        ),
-                      ),
-                      height: 60,
-                      width: MediaQuery.of(context).size.width,
-                    )),
+                Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('images/design/footer.png'),
+                      fit: BoxFit
+                          .fill, // Esto ajusta la imagen para que cubra todo el Container
+                    ),
+                  ),
+                  height: 60,
+                  width: MediaQuery.of(context).size.width,
+                ),
               ],
             ),
           )),
