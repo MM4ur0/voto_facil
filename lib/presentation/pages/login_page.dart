@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:animate_do/animate_do.dart';
+import 'package:voto_facil/model/user.dart';
 import 'package:zog_ui/zog_ui.dart';
+import 'package:voto_facil/config/database/voto_database.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -11,9 +12,11 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool _isObscure = true;
-  final String user = "1";
-  final String password = "1";
+  bool erroruser = false;
+  String user = "";
+  String password = "";
   final passw1Controller = TextEditingController();
+  final userController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -27,9 +30,22 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               Image.asset(
                 'images/design/logo.png',
-                height: 220,
+                height: 190,
                 width: MediaQuery.of(context).size.width *
                     0.8, // 80% del ancho del dispositivo
+              ),
+              Container(
+                child: Text(
+                  "Votar nunca fue tan facil !",
+                  style: TextStyle(
+                    fontFamily: AutofillHints.birthday, fontSize: 16,
+                    fontWeight: FontWeight.bold, // Para negrita
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 30,
               ),
               Form(
                 key: _formKey,
@@ -40,6 +56,7 @@ class _LoginPageState extends State<LoginPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         TextFormField(
+                          controller: userController,
                           style: const TextStyle(
                               color: Color.fromARGB(255, 0, 0, 0)),
                           decoration: const InputDecoration(
@@ -71,9 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                             if (value == null || value.isEmpty) {
                               return 'Ingresa tu Usuario';
                             }
-                            if (value != user) {
-                              return "Usuario no encontrado";
-                            }
+
                             return null;
                           },
                         ),
@@ -126,20 +141,37 @@ class _LoginPageState extends State<LoginPage> {
                               if (value == null || value.isEmpty) {
                                 return "Ingresa tu contraseña";
                               }
-                              if (value != password) {
-                                return "Constraseña no válida";
-                              }
-
                               return null;
                             }),
                         const SizedBox(
-                          height: 25,
+                          height: 5,
                         ),
-                        const SizedBox(height: 5),
+                        Visibility(
+                          visible: erroruser, // Esta sería tu variable booleana
+                          child: Text(
+                            "usuario o contraseña incorrectos",
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        ),
+                        const SizedBox(height: 26),
                         ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
+                            user = userController.text;
+                            password = passw1Controller.text;
+
+                            User? usuarioEncontrado =
+                                await VotoDataBase.buscarUsuario(
+                                    user, password);
+
                             if (_formKey.currentState!.validate()) {
-                              Navigator.pushReplacementNamed(context, '/home');
+                              if (usuarioEncontrado != null) {
+                                Navigator.pushReplacementNamed(
+                                    context, '/home');
+                              } else {
+                                setState(() {
+                                  erroruser = true;
+                                });
+                              }
                             }
                           },
                           style: TextButton.styleFrom(
@@ -169,11 +201,13 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               ZeroButton.primary(
-                width: 135,
+                style: ZeroButtonStyle(
+                    backgroundColor: Color.fromARGB(255, 0, 0, 0)),
+                width: 195,
                 buttonRadiusType: ZeroButtonRadiusType.rounded,
                 child: Text(
-                  "Registrarse",
-                  style: TextStyle(fontSize: 17),
+                  "Nuevo? Registrate Aqui",
+                  style: TextStyle(fontSize: 13),
                 ),
                 onPressed: () {
                   Navigator.pushNamed(context, '/registro');

@@ -3,6 +3,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:voto_facil/model/candidatos.dart';
 import 'package:voto_facil/model/ideologia.dart';
 import 'package:voto_facil/model/partidos_politicos.dart';
+import 'package:voto_facil/model/user.dart';
 
 class VotoDataBase {
   static Future<Database> _openDB() async {
@@ -14,6 +15,8 @@ class VotoDataBase {
           'CREATE TABLE ideologia(id INTEGER PRIMARY KEY AUTOINCREMENT, idea TEXT, idpartido TEXT);');
       db.execute(
           'CREATE TABLE candidato(id INTEGER PRIMARY KEY AUTOINCREMENT, imagen TEXT, nombre TEXT, cargo TEXT, idpartido TEXT);');
+      db.execute(
+          'CREATE TABLE usuario(id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, password TEXT);');
       db.execute(
           "INSERT INTO partidopolitico(nombre, imagen, fundacion, posicion, sede, pais) VALUES "
           "('CLARO QUE SE PUEDE','claro.jpg','15 de Mayo de 2012','Derecha', 'Quito','Ecuador'),"
@@ -59,6 +62,10 @@ class VotoDataBase {
           "('andrea.jpg', 'Andrea Gonzalez Nader', 'Vicepresidente', '7'),"
           "('xavier.jpg', 'Xavier Hervas', 'Presidente', '8'),"
           "('luz.jpg', 'Luz Marina Vega', 'Vicepresidente', '8')");
+
+      db.execute("INSERT INTO usuario(nombre, password) VALUES"
+          "('jesus', 'p1'),"
+          "('paul', 'p2')");
     }, version: 1);
   }
 
@@ -130,5 +137,25 @@ class VotoDataBase {
               idea: ideologiaMap[i]['idea'],
               idpartido: ideologiaMap[i]['idpartido'],
             ));
+  }
+
+  static Future<User?> buscarUsuario(String nombre, String password) async {
+    Database db = await _openDB();
+
+    final List<Map<String, dynamic>> maps = await db.query(
+      'usuario',
+      where: 'nombre = ? AND password = ?',
+      whereArgs: [nombre, password],
+    );
+
+    if (maps.isNotEmpty) {
+      return User(
+        id: maps[0]['id'],
+        nombre: maps[0]['nombre'],
+        password: maps[0]['password'],
+      );
+    }
+
+    return null;
   }
 }
