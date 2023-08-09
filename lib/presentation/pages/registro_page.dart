@@ -4,6 +4,7 @@ import 'package:voto_facil/presentation/widgets/registro/checkbox_button.dart';
 import 'package:voto_facil/presentation/widgets/registro/date_picker.dart';
 import 'package:voto_facil/presentation/widgets/registro/radio_button.dart';
 import 'package:zog_ui/zog_ui.dart';
+import 'package:voto_facil/config/database/voto_database.dart';
 
 class RegistroPage extends StatefulWidget {
   const RegistroPage({Key? key}) : super(key: key);
@@ -400,7 +401,7 @@ class _RegistroPageState extends State<RegistroPage> {
     );
   }
 
-  void submitForm() {
+  void submitForm() async {
     final state = key.currentState;
     if (state!.validate()) {
       state.save();
@@ -422,6 +423,18 @@ class _RegistroPageState extends State<RegistroPage> {
           !passw2Error &&
           dropdownValue != null &&
           dropdownValue != dropdownDefaultValue) {
+        Map<String, dynamic> nuevoUsuario = {
+          'cedula': cedula,
+          'nombres': nombres,
+          'apellidos': apellidos,
+          'region': dropdownValue,
+          'genero': genero,
+          'fechaN': fechaNac,
+          'correo': correo,
+          'password': contrasena,
+        };
+        await VotoDataBase.insertarUsuario(nuevoUsuario);
+
         showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -446,7 +459,9 @@ class _RegistroPageState extends State<RegistroPage> {
               actions: [
                 TextButton(
                   onPressed: () {
-                    Navigator.of(context).pop(); // Cerrar la ventana emergente
+                    Navigator.of(context).pop();
+                    Navigator.pushReplacementNamed(
+                        context, "/"); // Cerrar la ventana emergente
                   },
                   child: const Text("Cerrar"),
                 ),

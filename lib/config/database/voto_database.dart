@@ -16,7 +16,7 @@ class VotoDataBase {
       db.execute(
           'CREATE TABLE candidato(id INTEGER PRIMARY KEY AUTOINCREMENT, imagen TEXT, nombre TEXT, cargo TEXT, idpartido TEXT);');
       db.execute(
-          'CREATE TABLE usuario(id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, password TEXT);');
+          'CREATE TABLE usuario(id INTEGER PRIMARY KEY AUTOINCREMENT, cedula TEXT,nombres TEXT,apellidos TEXT,region TEXT,genero TEXT,fechaN TEXT,correo TEXT, password TEXT);');
       db.execute(
           "INSERT INTO partidopolitico(nombre, imagen, fundacion, posicion, sede, pais) VALUES "
           "('CLARO QUE SE PUEDE','claro.jpg','15 de Mayo de 2012','Derecha', 'Quito','Ecuador'),"
@@ -63,7 +63,7 @@ class VotoDataBase {
           "('xavier.jpg', 'Xavier Hervas', 'Presidente', '8'),"
           "('luz.jpg', 'Luz Marina Vega', 'Vicepresidente', '8')");
 
-      db.execute("INSERT INTO usuario(nombre, password) VALUES"
+      db.execute("INSERT INTO usuario(nombres, password) VALUES"
           "('jesus', 'p1'),"
           "('paul', 'p2')");
     }, version: 1);
@@ -144,18 +144,27 @@ class VotoDataBase {
 
     final List<Map<String, dynamic>> maps = await db.query(
       'usuario',
-      where: 'nombre = ? AND password = ?',
+      where: 'nombres = ? AND password = ?',
       whereArgs: [nombre, password],
     );
 
     if (maps.isNotEmpty) {
       return User(
         id: maps[0]['id'],
-        nombre: maps[0]['nombre'],
+        nombre: maps[0]['nombres'],
         password: maps[0]['password'],
       );
     }
 
     return null;
+  }
+
+  static Future<void> insertarUsuario(Map<String, dynamic> usuario) async {
+    final Database db = await _openDB();
+    await db.insert(
+      'usuario',
+      usuario,
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
   }
 }

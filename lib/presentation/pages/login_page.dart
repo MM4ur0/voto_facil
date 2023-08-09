@@ -165,8 +165,8 @@ class _LoginPageState extends State<LoginPage> {
 
                             if (_formKey.currentState!.validate()) {
                               if (usuarioEncontrado != null) {
-                                Navigator.pushReplacementNamed(
-                                    context, '/home');
+                                Navigator.pushNamedAndRemoveUntil(
+                                    context, '/home', (route) => false);
                               } else {
                                 setState(() {
                                   erroruser = true;
