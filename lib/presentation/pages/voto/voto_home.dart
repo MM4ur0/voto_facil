@@ -298,7 +298,9 @@ class _votohomePageState extends State<votohomePage> {
             ),
             TextButton(
               // group21gTB (1:49)
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, "/faq1");
+              },
               style: TextButton.styleFrom(
                 padding: EdgeInsets.zero,
               ),
@@ -322,7 +324,7 @@ class _votohomePageState extends State<votohomePage> {
             TextButton(
               // group21gTB (1:49)
               onPressed: () {
-                Navigator.pushNamed(context, '/votar');
+                Navigator.pushNamed(context, '/list_partidos_politicos');
               },
               style: TextButton.styleFrom(
                 padding: EdgeInsets.zero,
@@ -336,7 +338,7 @@ class _votohomePageState extends State<votohomePage> {
                 ),
                 child: const Center(
                   child: Text(
-                    'Cuáles son los cargos a escoger ?',
+                    'Cuáles son los candidatos ?',
                   ),
                 ),
               ),
