@@ -68,7 +68,10 @@ class _RegistroPageState extends State<RegistroPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Registro de usuario"),
+        iconTheme: const IconThemeData(color: Colors.white),
+        backgroundColor: ZeroColors.primary,
+        title: const Text("Registro de usuario",
+            style: TextStyle(color: Colors.white)),
       ),
       body: Container(
         margin: const EdgeInsets.only(top: 15),
@@ -382,7 +385,7 @@ class _RegistroPageState extends State<RegistroPage> {
                         buttonSizeType: ZeroSizeType.large,
                         buttonRadiusType: ZeroButtonRadiusType.rounded,
                         style: const ZeroButtonStyle(
-                          backgroundColor: ZeroColors.dustRed,
+                          backgroundColor: Color.fromARGB(255, 150, 149, 149),
                         ),
                         onPressed: () => limpiar(),
                         child: const Text(
@@ -393,6 +396,9 @@ class _RegistroPageState extends State<RegistroPage> {
                     ],
                   ),
                 ),
+                SizedBox(
+                  height: 20,
+                )
               ],
             ),
           ),
@@ -451,19 +457,16 @@ class _RegistroPageState extends State<RegistroPage> {
                 "Región: $dropdownValue \n"
                 "Género: $genero \n"
                 "Nace: $fechaNac \n"
-                "Correo: $correo \n"
-                "Contraseña: $contrasena\n"
-                "Contraseña: $rcontrasena\n"
-                "Checkbox: $checkTerminos",
+                "Correo: $correo \n",
+                style: TextStyle(fontSize: 15),
               ),
               actions: [
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
-                    Navigator.pushReplacementNamed(
-                        context, "/"); // Cerrar la ventana emergente
+                    Navigator.pushReplacementNamed(context, "/");
                   },
-                  child: const Text("Cerrar"),
+                  child: const Text("Aceptar"),
                 ),
               ],
             );

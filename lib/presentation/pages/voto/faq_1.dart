@@ -87,6 +87,22 @@ class _Faq1PageState extends State<Faq1Page> {
                       ],
                     ),
                   ),
+                  SizedBox(
+                    height: 15,
+                  ),
+
+                  Container(
+                      padding: EdgeInsets.all(16.0),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          "Quiénes no pueden ejercer Voto?",
+                          style: TextStyle(
+                            fontSize: 24,
+                          ),
+                        ),
+                      )),
+
                   Expanded(
                     child: Container(
                       padding: EdgeInsets.all(16.0),

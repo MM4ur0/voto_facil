@@ -84,8 +84,7 @@ class _votovotarPageState extends State<votovotarPage> {
                         ),
                         children: <TextSpan>[
                           TextSpan(
-                            text:
-                                'Recuerde que al Seleccionar una Papeleta,\n Tendra un Tiempo Limite de ',
+                            text: 'Tiene un Tiempo Limite de ',
                           ),
                           TextSpan(
                             text: '10 min',
@@ -143,7 +142,7 @@ class _votovotarPageState extends State<votovotarPage> {
                           children: [
                             //SizedBox(height: 20), // Espaciado
                             Icon(size: 80, Icons.contact_page),
-                            SizedBox(width: 25),
+                            SizedBox(width: 15),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
@@ -199,18 +198,18 @@ class _votovotarPageState extends State<votovotarPage> {
                             children: [
                               Container(
                                 padding: EdgeInsets.fromLTRB(2.5, 0, 2.5, 0),
-                                margin: EdgeInsets.only(right: 5),
+                                margin: EdgeInsets.only(right: 30, top: 7),
                                 width: 24,
                                 height: 24,
                                 child:
-                                    Icon(size: 20, Icons.info_outline_rounded),
+                                    Icon(size: 30, Icons.info_outline_rounded),
                               ),
                               Expanded(
                                   child: Container(
                                 margin: EdgeInsets.only(top: 7),
                                 child: Text(
-                                  'Ten en cuenta que son las mismas \nPapeletas de Siempre\n ahora digitales',
-                                  textAlign: TextAlign.center,
+                                  'Recuerda que son las mismas Papeletas de Siempre ahora digitales',
+                                  textAlign: TextAlign.left,
                                   style: GoogleFonts.inter(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w400,

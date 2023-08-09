@@ -22,18 +22,36 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      body: SingleChildScrollView(
+          child: Center(
         child: SizedBox(
+          height: 666,
           width: 200, // Ajusta el ancho según tus necesidades
           child: Column(
+            //error
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(
-                'images/design/logo.png',
-                height: 190,
-                width: MediaQuery.of(context).size.width *
-                    0.8, // 80% del ancho del dispositivo
+              SizedBox(
+                height: 54,
               ),
+              Container(
+                  height: 230,
+                  child: Stack(
+                    children: [
+                      Image.asset(
+                        'images/design/vb.png',
+                        height: 140,
+                        width: MediaQuery.of(context).size.width *
+                            0.8, // 80% del ancho del dispositivo
+                      ),
+                      Image.asset(
+                        'images/design/logo.png',
+                        height: 290,
+                        width: MediaQuery.of(context).size.width *
+                            0.8, // 80% del ancho del dispositivo
+                      ),
+                    ],
+                  )),
               Container(
                 child: Text(
                   "Votar nunca fue tan facil !",
@@ -216,7 +234,7 @@ class _LoginPageState extends State<LoginPage> {
             ],
           ),
         ),
-      ),
+      )),
     );
   }
 }
