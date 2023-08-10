@@ -14,6 +14,12 @@ class _PerfilPageState extends State<PerfilPage> {
   @override
   Widget build(BuildContext context) {
     User userDB = User.instance;
+    bool vvisible = false;
+    if (userDB.voto != null) {
+      if (userDB.voto == 1) {
+        vvisible = true;
+      }
+    }
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
@@ -38,10 +44,10 @@ class _PerfilPageState extends State<PerfilPage> {
                 value: 'opcion1',
                 child: Text('Cerrar Sesión'),
               ),
-              PopupMenuItem<String>(
+              /*PopupMenuItem<String>(
                 value: 'opcion2',
                 child: Text('Opción 2'),
-              ),
+              ),*/
             ],
           ),
         ],
@@ -203,7 +209,7 @@ class _PerfilPageState extends State<PerfilPage> {
                         ),
                       ),
                       Visibility(
-                          visible: true,
+                          visible: vvisible,
                           child: Container(
                             padding: EdgeInsets.fromLTRB(26, 39, 25, 51),
                             width: double.infinity,

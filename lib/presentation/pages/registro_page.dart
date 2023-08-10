@@ -438,6 +438,7 @@ class _RegistroPageState extends State<RegistroPage> {
           'fechaN': fechaNac,
           'correo': correo,
           'password': contrasena,
+          'voto': 0
         };
         await VotoDataBase.insertarUsuario(nuevoUsuario);
 
