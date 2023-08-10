@@ -25,12 +25,18 @@ class CardPerfil extends StatelessWidget {
             width: 370,
             height: 150,
             child: Row(children: [
+              SizedBox(
+                width: 25,
+              ),
               const Padding(
                 padding: EdgeInsetsDirectional.symmetric(horizontal: 10),
                 child: CircleAvatar(
                   radius: 50,
                   child: Icon(size: 55, Icons.account_circle_rounded),
                 ),
+              ),
+              SizedBox(
+                width: 20,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
