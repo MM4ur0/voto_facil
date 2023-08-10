@@ -183,6 +183,7 @@ class _LoginPageState extends State<LoginPage> {
 
                             if (_formKey.currentState!.validate()) {
                               if (usuarioEncontrado != null) {
+                                User.setInstance(usuarioEncontrado);
                                 Navigator.pushNamedAndRemoveUntil(
                                     context, '/home', (route) => false);
                               } else {

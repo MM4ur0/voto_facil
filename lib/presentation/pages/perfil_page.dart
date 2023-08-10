@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:zog_ui/zog_ui.dart';
+import 'package:voto_facil/model/user.dart';
 
 class PerfilPage extends StatefulWidget {
   const PerfilPage({super.key});
@@ -12,6 +13,7 @@ class PerfilPage extends StatefulWidget {
 class _PerfilPageState extends State<PerfilPage> {
   @override
   Widget build(BuildContext context) {
+    User userDB = User.instance;
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
@@ -101,7 +103,9 @@ class _PerfilPageState extends State<PerfilPage> {
                             Container(
                               margin: EdgeInsets.fromLTRB(0, 10, 7, 8),
                               child: Text(
-                                'Juan Roberto Z',
+                                userDB.nombre +
+                                    "  " +
+                                    (userDB.apellidos ?? '------------------'),
                                 style: GoogleFonts.inter(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -114,56 +118,84 @@ class _PerfilPageState extends State<PerfilPage> {
                               margin: EdgeInsets.fromLTRB(0, 0, 0, 9),
                               width: double.infinity,
                               height: 47,
-                              child: Stack(
-                                children: [
-                                  Positioned(
-                                    left: 140,
-                                    top: 14,
-                                    child: Text(
-                                      '098555222110',
-                                      style: GoogleFonts.inter(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w400,
-                                        height: 1.2125,
-                                        color: Color(0xff000000),
-                                      ),
-                                    ),
+                              child: Center(
+                                child: Text(
+                                  "Cedula : " + (userDB.cedula ?? '00000000'),
+                                  style: GoogleFonts.inter(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                    height: 1.2125,
+                                    color: Color(0xff000000),
                                   ),
-                                  Positioned(
-                                    left: 0,
-                                    top: 0,
-                                    child: Align(
-                                      child: SizedBox(
-                                        width: 326,
-                                        height: 47,
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            border: Border(
-                                              top: BorderSide(
-                                                  color: const Color.fromARGB(
-                                                      255, 160, 160, 160)),
-                                              bottom: BorderSide(
-                                                  color: const Color.fromARGB(
-                                                      255, 160, 160, 160)),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
                             ),
                             Container(
+                              height: 50,
+                              width: double.infinity,
                               // correogmailcomYZM (145:190)
                               margin: EdgeInsets.fromLTRB(0, 0, 8, 0),
-                              child: Text(
-                                'Correo@gmail.com',
+                              child: Center(
+                                child: Text(
+                                  userDB.correo ?? '---------------',
+                                  style: GoogleFonts.inter(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                    height: 1.2125,
+                                    color: Color(0xff000000),
+                                  ),
+                                ),
+                              ),
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  top: BorderSide(
+                                      color: const Color.fromARGB(
+                                          255, 160, 160, 160)),
+                                  bottom: BorderSide(
+                                      color: const Color.fromARGB(
+                                          255, 160, 160, 160)),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              height: 50,
+                              width: double.infinity,
+                              // correogmailcomYZM (145:190)
+                              margin: EdgeInsets.fromLTRB(0, 0, 8, 0),
+                              child: Center(
+                                  child: Text(
+                                "Genero : " + (userDB.genero ?? '00000000'),
                                 style: GoogleFonts.inter(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w400,
                                   height: 1.2125,
                                   color: Color(0xff000000),
+                                ),
+                              )),
+                            ),
+                            Container(
+                              height: 50,
+                              width: double.infinity,
+                              // correogmailcomYZM (145:190)
+                              margin: EdgeInsets.fromLTRB(0, 0, 8, 0),
+                              child: Center(
+                                  child: Text(
+                                "Región : " + (userDB.region ?? '00000000'),
+                                style: GoogleFonts.inter(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                  height: 1.2125,
+                                  color: Color(0xff000000),
+                                ),
+                              )),
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  top: BorderSide(
+                                      color: const Color.fromARGB(
+                                          255, 160, 160, 160)),
+                                  bottom: BorderSide(
+                                      color: const Color.fromARGB(
+                                          255, 160, 160, 160)),
                                 ),
                               ),
                             ),
@@ -182,7 +214,6 @@ class _PerfilPageState extends State<PerfilPage> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Container(
-                                  // certificadovirtualtemporalkvK (145:177)
                                   margin: EdgeInsets.fromLTRB(1, 0, 0, 14),
                                   child: Text(
                                     'Certificado virtual Temporal',
@@ -195,7 +226,6 @@ class _PerfilPageState extends State<PerfilPage> {
                                   ),
                                 ),
                                 Container(
-                                  // cardfnP (145:170)
                                   padding: EdgeInsets.fromLTRB(45, 16, 26, 11),
                                   width: double.infinity,
                                   decoration: BoxDecoration(

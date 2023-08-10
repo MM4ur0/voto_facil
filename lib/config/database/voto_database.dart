@@ -16,7 +16,7 @@ class VotoDataBase {
       db.execute(
           'CREATE TABLE candidato(id INTEGER PRIMARY KEY AUTOINCREMENT, imagen TEXT, nombre TEXT, cargo TEXT, idpartido TEXT);');
       db.execute(
-          'CREATE TABLE usuario(id INTEGER PRIMARY KEY AUTOINCREMENT, cedula TEXT,nombres TEXT,apellidos TEXT,region TEXT,genero TEXT,fechaN TEXT,correo TEXT, password TEXT);');
+          'CREATE TABLE usuario(id INTEGER PRIMARY KEY AUTOINCREMENT, cedula TEXT,nombres TEXT,apellidos TEXT,region TEXT,genero TEXT,fechaN TEXT,correo TEXT, password TEXT, voto INTEGER);');
       db.execute(
           "INSERT INTO partidopolitico(nombre, imagen, fundacion, posicion, sede, pais) VALUES "
           "('CLARO QUE SE PUEDE','claro.jpg','15 de Mayo de 2012','Derecha', 'Quito','Ecuador'),"
@@ -151,8 +151,15 @@ class VotoDataBase {
     if (maps.isNotEmpty) {
       return User(
         id: maps[0]['id'],
+        cedula: maps[0]['cedula'],
         nombre: maps[0]['nombres'],
+        apellidos: maps[0]['apellidos'],
+        correo: maps[0]['correo'],
         password: maps[0]['password'],
+        region: maps[0]['region'],
+        genero: maps[0]['genero'],
+        fechaN: maps[0]['fechaN'],
+        voto: maps[0]['voto'],
       );
     }
 
