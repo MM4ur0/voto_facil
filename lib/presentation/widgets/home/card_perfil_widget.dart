@@ -20,14 +20,17 @@ class CardPerfil extends StatelessWidget {
         elevation: 3,
         clipBehavior: Clip.hardEdge,
         child: InkWell(
-          splashColor: Colors.blue,
+          splashColor: const Color.fromARGB(255, 0, 0, 0),
           child: SizedBox(
             width: 370,
             height: 150,
             child: Row(children: [
               const Padding(
                 padding: EdgeInsetsDirectional.symmetric(horizontal: 10),
-                child: CircleAvatar(radius: 50),
+                child: CircleAvatar(
+                  radius: 50,
+                  child: Icon(size: 55, Icons.account_circle_rounded),
+                ),
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
