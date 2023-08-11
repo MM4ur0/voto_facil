@@ -25,7 +25,7 @@ class _PapeletaPageState extends State<PapeletaPage> {
           ),
         ),
         body: SingleChildScrollView(
-            padding: EdgeInsets.all(16),
+            padding: EdgeInsets.all(14),
             child: ListView(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
@@ -169,18 +169,43 @@ class _PapeletaPageState extends State<PapeletaPage> {
                       ),
                     ),
                   ),
-                  cardpartidos(),
                   SizedBox(
                     height: 60,
                   ),
-                  cardpartidos(),
+                  Container(),
+                  cardpartidos(partidoId: "1"),
                   SizedBox(
-                    height: 60,
+                    height: 40,
                   ),
-                  cardpartidos(),
+                  cardpartidos(partidoId: "2"),
                   SizedBox(
-                    height: 60,
-                  )
+                    height: 40,
+                  ),
+                  cardpartidos(partidoId: "3"),
+                  SizedBox(
+                    height: 40,
+                  ),
+
+                  SizedBox(
+                    height: 40,
+                  ),
+                  cardpartidos(partidoId: "4"),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  cardpartidos(partidoId: "5"),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  cardpartidos(partidoId: "6"),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  cardpartidos(partidoId: "7"),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  cardpartidos(partidoId: "8"),
                 ])));
   }
 }
