@@ -126,9 +126,6 @@ class _PerfilPageState extends State<PerfilPage> {
                               )),
                               decoration: BoxDecoration(
                                 border: Border(
-                                  top: BorderSide(
-                                      color: const Color.fromARGB(
-                                          255, 160, 160, 160)),
                                   bottom: BorderSide(
                                       color: const Color.fromARGB(
                                           255, 160, 160, 160)),

@@ -137,7 +137,7 @@ class _votovotarPageState extends State<votovotarPage> {
                   ),
 
                   TextButton(
-                    onPressed: userDB.voto == 0
+                    onPressed: userDB.voto != 1
                         ? () {
                             //p(context);
                             Navigator.pushNamed(context, "/papeleta");
@@ -219,7 +219,7 @@ class _votovotarPageState extends State<votovotarPage> {
                             children: [
                               Container(
                                 padding: EdgeInsets.fromLTRB(2.5, 0, 2.5, 0),
-                                margin: EdgeInsets.only(right: 30, top: 7),
+                                margin: EdgeInsets.only(right: 50, top: 7),
                                 width: 24,
                                 height: 24,
                                 child:
@@ -229,11 +229,15 @@ class _votovotarPageState extends State<votovotarPage> {
                                   child: Container(
                                 margin: EdgeInsets.only(top: 7),
                                 child: Text(
-                                  'Recuerda que son las mismas Papeletas de Siempre ahora digitales',
+                                  userDB.voto != 1
+                                      ? 'Recuerda que son las mismas Papeletas de Siempre ahora digitales'
+                                      : '\t\t\t\t  Usted ya realizo \nel proceso de votación',
                                   textAlign: TextAlign.left,
                                   style: GoogleFonts.inter(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w400,
+                                    fontSize: userDB.voto != 1 ? 15 : 25,
+                                    fontWeight: userDB.voto != 1
+                                        ? FontWeight.w400
+                                        : FontWeight.bold,
                                     height: 1.2125,
                                     color: Color.fromARGB(255, 44, 44, 44),
                                   ),
