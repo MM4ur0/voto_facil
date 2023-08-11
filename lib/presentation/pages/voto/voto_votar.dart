@@ -3,9 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart'; // Asegúrate de tener esta importación
 import 'package:zog_ui/zog_ui.dart';
-import 'package:voto_facil/presentation/widgets/voto/timer_widget.dart';
-import 'package:voto_facil/presentation/widgets/voto/card_partidos.dart';
-import 'package:voto_facil/presentation/widgets/voto/voto_nulo.dart';
+
+import 'package:voto_facil/model/user.dart';
 
 class votovotarPage extends StatefulWidget {
   const votovotarPage({Key? key}) : super(key: key);
@@ -15,6 +14,7 @@ class votovotarPage extends StatefulWidget {
 }
 
 class _votovotarPageState extends State<votovotarPage> {
+  User userDB = User.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,6 +25,22 @@ class _votovotarPageState extends State<votovotarPage> {
             'Ejercer Voto',
             style: TextStyle(color: Colors.white),
           ),
+          actions: [
+            PopupMenuButton<String>(
+              onSelected: (value) {
+                // Aquí puedes manejar la selección de elementos del menú
+                if (value == 'opcion1') {
+                  Navigator.pushNamed(context, "/list_partidos_politicos");
+                }
+              },
+              itemBuilder: (BuildContext context) => [
+                PopupMenuItem<String>(
+                  value: 'opcion1',
+                  child: Text('ver Partidos Politicos'),
+                ),
+              ],
+            ),
+          ],
         ),
         body: SingleChildScrollView(
             padding: EdgeInsets.all(16),
@@ -71,36 +87,39 @@ class _votovotarPageState extends State<votovotarPage> {
                         ]),
                   ),
                   Expanded(
-                      child: Container(
-                    margin: EdgeInsets.only(top: 7),
-                    child: RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
-                        style: GoogleFonts.inter(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                          height: 1.2125,
-                          color: Color.fromARGB(255, 44, 44, 44),
-                        ),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: 'Tiene un Tiempo Limite de ',
-                          ),
-                          TextSpan(
-                            text: '10 min',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors
-                                  .black, // Puedes ajustar el color si lo deseas
+                      child: Visibility(
+                          visible: userDB.voto != 1,
+                          child: Container(
+                            margin: EdgeInsets.only(top: 7),
+                            child: RichText(
+                              textAlign: TextAlign.center,
+                              text: TextSpan(
+                                style: GoogleFonts.inter(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400,
+                                  height: 1.2125,
+                                  color: Color.fromARGB(255, 44, 44, 44),
+                                ),
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: 'Tiene un Tiempo Limite de ',
+                                  ),
+                                  TextSpan(
+                                    text: '5 min',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors
+                                          .black, // Puedes ajustar el color si lo deseas
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        ' para realizar el proceso de votacion',
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          TextSpan(
-                            text: ' para realizar el proceso de votacion',
-                          ),
-                        ],
-                      ),
-                    ),
-                  )),
+                          ))),
                   Container(
                     margin: EdgeInsets.only(bottom: 16),
                     width: double.infinity,
@@ -118,10 +137,12 @@ class _votovotarPageState extends State<votovotarPage> {
                   ),
 
                   TextButton(
-                    onPressed: () {
-                      //p(context);
-                      Navigator.pushNamed(context, "/papeleta");
-                    },
+                    onPressed: userDB.voto == 0
+                        ? () {
+                            //p(context);
+                            Navigator.pushNamed(context, "/papeleta");
+                          }
+                        : null,
                     style: TextButton.styleFrom(
                       padding: EdgeInsets.zero,
                     ),

@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
                   },
                   child: CardPerfil(
                     user: userDB.nombre +
-                        "  " +
+                        "  \n" +
                         (userDB.apellidos ?? '------------------'),
                     identification: userDB.cedula ?? '00000000000',
                     zone: "Region: " + (userDB.region ?? '---------'),

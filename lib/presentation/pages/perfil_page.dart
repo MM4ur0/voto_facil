@@ -70,10 +70,31 @@ class _PerfilPageState extends State<PerfilPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
+                  margin: EdgeInsets.fromLTRB(150, 0, 113, 22),
+                  padding: EdgeInsets.fromLTRB(21, 20, 20, 20),
+                  width: 130,
+                  height: 130,
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 255, 255, 255),
+                    borderRadius: BorderRadius.circular(80),
+                  ),
+                  child: Center(
+                    // accountcirclemNF (145:174)
+                    child: SizedBox(
+                      width: 61,
+                      height: 62,
+                      child: Icon(size: 55, Icons.account_circle_rounded),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                Container(
                   padding: EdgeInsets.fromLTRB(0, 0, 0, 30),
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(3, 255, 255, 255),
+                    color: Color.fromARGB(255, 255, 255, 255),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -84,39 +105,33 @@ class _PerfilPageState extends State<PerfilPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Container(
-                              margin: EdgeInsets.fromLTRB(111, 0, 113, 22),
-                              padding: EdgeInsets.fromLTRB(21, 20, 20, 20),
-                              width: 130,
-                              height: 130,
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 255, 255, 255),
-                                borderRadius: BorderRadius.circular(80),
-                              ),
-                              child: Center(
-                                // accountcirclemNF (145:174)
-                                child: SizedBox(
-                                  width: 61,
-                                  height: 62,
-                                  child: Icon(
-                                      size: 55, Icons.account_circle_rounded),
-                                ),
-                              ),
-                            ),
                             SizedBox(
                               height: 50,
                             ),
                             Container(
+                              height: 60,
+                              width: double.infinity,
                               margin: EdgeInsets.fromLTRB(0, 10, 7, 8),
-                              child: Text(
+                              child: Center(
+                                  child: Text(
                                 userDB.nombre +
                                     "  " +
-                                    (userDB.apellidos ?? '------------------'),
+                                    (userDB.apellidos ?? '---------'),
                                 style: GoogleFonts.inter(
-                                  fontSize: 20,
+                                  fontSize: 25,
                                   fontWeight: FontWeight.bold,
                                   height: 1.2125,
                                   color: Color(0xff000000),
+                                ),
+                              )),
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  top: BorderSide(
+                                      color: const Color.fromARGB(
+                                          255, 160, 160, 160)),
+                                  bottom: BorderSide(
+                                      color: const Color.fromARGB(
+                                          255, 160, 160, 160)),
                                 ),
                               ),
                             ),
@@ -143,7 +158,7 @@ class _PerfilPageState extends State<PerfilPage> {
                               margin: EdgeInsets.fromLTRB(0, 0, 8, 0),
                               child: Center(
                                 child: Text(
-                                  userDB.correo ?? '---------------',
+                                  userDB.correo ?? '---------',
                                   style: GoogleFonts.inter(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400,
@@ -233,10 +248,10 @@ class _PerfilPageState extends State<PerfilPage> {
                                 ),
                                 Container(
                                   padding: EdgeInsets.fromLTRB(45, 16, 26, 11),
-                                  width: double.infinity,
+                                  width: 300,
                                   decoration: BoxDecoration(
                                     border: Border.all(color: Colors.black),
-                                    color: Color(0xffffffff),
+                                    color: Color.fromARGB(255, 255, 255, 255),
                                     borderRadius: BorderRadius.circular(7),
                                     boxShadow: [
                                       BoxShadow(
@@ -255,7 +270,7 @@ class _PerfilPageState extends State<PerfilPage> {
                                             EdgeInsets.fromLTRB(0, 0, 10, 5),
                                         width: 186,
                                         height: 160,
-                                        child: Icon(size: 95, Icons.qr_code),
+                                        child: Icon(size: 122, Icons.qr_code),
                                       ),
                                       Container(
                                         margin:

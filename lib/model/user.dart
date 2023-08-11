@@ -1,5 +1,4 @@
 class User {
-  //INTEGER PRIMARY KEY AUTOINCREMENT, cedula TEXT,nombres TEXT,apellidos TEXT,region TEXT,genero TEXT,fechaN TEXT,correo TEXT, password TEXT, voto INTEGER);
   int id;
   String? cedula;
   String password;
@@ -34,6 +33,10 @@ class User {
 
   static setInstance(User user) {
     _instance = user;
+  }
+
+  void actualizarVoto(int nuevoVoto) {
+    voto = nuevoVoto;
   }
 
   Map<String, dynamic> toMap() {

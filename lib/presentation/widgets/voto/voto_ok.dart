@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:zog_ui/zog_ui.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:voto_facil/model/user.dart';
+import 'package:voto_facil/config/database/voto_database.dart';
 
 class Votoselect extends StatelessWidget {
   final String candidato1;
@@ -10,6 +12,8 @@ class Votoselect extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    User userDB = User.instance;
+
     return Center(
       child: SizedBox(
         width: 700, // Ajusta el ancho según tus necesidades
@@ -88,10 +92,15 @@ class Votoselect extends StatelessWidget {
                           width: 133,
                           buttonSizeType: ZeroSizeType.large,
                           buttonRadiusType: ZeroButtonRadiusType.rounded,
-                          onPressed: () {
+                          onPressed: () async {
                             Navigator.pop(context);
                             Navigator.pushReplacementNamed(context, '/home');
                             Navigator.pop(context);
+                            userDB.actualizarVoto(1);
+                            Navigator.pushReplacementNamed(
+                                context, '/voto_votar');
+                            await VotoDataBase.actualizarVoto(
+                                userDB.id, userDB.voto ?? 0);
                           },
                           child: const Text("Continuar"),
                         ),

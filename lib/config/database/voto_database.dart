@@ -166,12 +166,24 @@ class VotoDataBase {
     return null;
   }
 
+//Guardar Usuario
   static Future<void> insertarUsuario(Map<String, dynamic> usuario) async {
     final Database db = await _openDB();
     await db.insert(
       'usuario',
       usuario,
       conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+//Guardar Voto
+  static Future<void> actualizarVoto(int idUsuario, int nuevoVoto) async {
+    final Database db = await _openDB();
+    await db.update(
+      'usuario',
+      {'voto': nuevoVoto},
+      where: 'id = ?',
+      whereArgs: [idUsuario],
     );
   }
 }

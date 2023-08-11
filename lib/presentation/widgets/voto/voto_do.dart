@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:zog_ui/zog_ui.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class PopupUser_valido extends StatelessWidget {
+class PopupvotoDo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Figma Flutter Generator PopupUser_valido - FRAME
@@ -34,7 +34,7 @@ class PopupUser_valido extends StatelessWidget {
                       height: 10,
                     ),
                     const Icon(
-                      Icons.verified_user_rounded,
+                      Icons.check_circle,
                       color: Colors.green,
                       size: 70,
                     ),
@@ -42,7 +42,7 @@ class PopupUser_valido extends StatelessWidget {
                     const SizedBox(
                       height: 30,
                       child: Text(
-                        "Verificado para Votar",
+                        "Usted ya Voto !",
                         style: TextStyle(
                           fontFamily: AutofillHints.jobTitle,
                           fontSize: 20,
@@ -59,7 +59,7 @@ class PopupUser_valido extends StatelessWidget {
                       buttonRadiusType: ZeroButtonRadiusType.rounded,
                       onPressed: () {
                         Navigator.pop(context);
-                        Navigator.pushNamed(context, '/voto_votar');
+                        Navigator.pushNamed(context, '/home');
                       },
                       child: const Text("Aceptar"),
                     )

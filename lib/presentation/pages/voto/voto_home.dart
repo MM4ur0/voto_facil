@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:zog_ui/zog_ui.dart';
 import 'package:voto_facil/presentation/widgets/voto/usuario_valido_popup.dart';
+import 'package:voto_facil/presentation/widgets/voto/voto_do.dart';
+import 'package:voto_facil/model/user.dart';
 
 class votohomePage extends StatefulWidget {
   const votohomePage({Key? key}) : super(key: key);
@@ -11,6 +13,7 @@ class votohomePage extends StatefulWidget {
 }
 
 class _votohomePageState extends State<votohomePage> {
+  User userDB = User.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -265,12 +268,21 @@ class _votohomePageState extends State<votohomePage> {
                 style: TextStyle(fontSize: 18),
               ),
               onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return PopupUser_valido();
-                  },
-                );
+                if (userDB.voto != 1) {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return PopupUser_valido();
+                    },
+                  );
+                } else {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return PopupvotoDo();
+                    },
+                  );
+                }
               },
             ),
             Container(
