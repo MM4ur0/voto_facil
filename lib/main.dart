@@ -20,6 +20,8 @@ class MyApp extends StatelessWidget {
     '/voto_votar': (context) => const votovotarPage(),
     '/papeleta': (context) => const PapeletaPage(),
     '/faq1': (context) => const Faq1Page(),
+    '/lista_resultado': (context) => const ListaResultado(),
+    '/home_resultado': (context) => const Resultado(),
   };
 
   @override

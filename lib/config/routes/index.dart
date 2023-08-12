@@ -12,3 +12,5 @@ export 'package:voto_facil/presentation/pages/voto/voto_home.dart';
 export 'package:voto_facil/presentation/pages/voto/voto_votar.dart';
 export 'package:voto_facil/presentation/pages/voto/papeleta.dart';
 export 'package:voto_facil/presentation/pages/voto/faq_1.dart';
+export 'package:voto_facil/presentation/pages/resultado/home_resultado.dart';
+export 'package:voto_facil/presentation/pages/resultado/lista_partidos.dart';
