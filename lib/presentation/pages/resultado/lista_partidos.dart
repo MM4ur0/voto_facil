@@ -73,22 +73,6 @@ class _PartidosPoliticosState extends State<ListaResultado> {
               SizedBox(
                 height: 25,
               ),
-              Container(
-                margin: EdgeInsets.all(25),
-                height: 55,
-                width: 255,
-                child: ZeroButton.primary(
-                  width: 120,
-                  height: 50,
-                  buttonRadiusType: ZeroButtonRadiusType.rounded,
-                  style: ZeroButtonStyle(),
-                  child: Text(
-                    "Ver resultados Generales",
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  onPressed: () {},
-                ),
-              ),
               Expanded(
                 child: ListView.builder(
                   itemCount: getFilteredPartidos().length,
