@@ -79,7 +79,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, '/lista_resultado');
+                    Navigator.pushNamed(context, '/resultado_dashboard');
                   },
                   child: const CardOptions(
                     title: "Ver resultados",

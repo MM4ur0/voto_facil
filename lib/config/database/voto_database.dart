@@ -17,6 +17,10 @@ class VotoDataBase {
           'CREATE TABLE candidato(id INTEGER PRIMARY KEY AUTOINCREMENT, imagen TEXT, nombre TEXT, cargo TEXT, idpartido TEXT);');
       db.execute(
           'CREATE TABLE usuario(id INTEGER PRIMARY KEY AUTOINCREMENT, cedula TEXT,nombres TEXT,apellidos TEXT,region TEXT,genero TEXT,fechaN TEXT,correo TEXT, password TEXT, voto INTEGER);');
+
+      db.execute(
+          'CREATE TABLE voto(id INTEGER PRIMARY KEY AUTOINCREMENT, idpartido INTEGER, idusuario INTEGER);');
+
       db.execute(
           "INSERT INTO partidopolitico(nombre, imagen, fundacion, posicion, sede, pais) VALUES "
           "('CLARO QUE SE PUEDE','claro.jpg','15 de Mayo de 2012','Derecha', 'Quito','Ecuador'),"
@@ -64,8 +68,28 @@ class VotoDataBase {
           "('luz.jpg', 'Luz Marina Vega', 'Vicepresidente', '8')");
 
       db.execute("INSERT INTO usuario(nombres, password) VALUES"
-          "('jesus', 'p1'),"
-          "('paul', 'p2')");
+          "('jesus','123'),"
+          "('paul','giraf456'),"
+          "('ana', 'tiger789'),"
+          "('maria', 'lin123'),"
+          "('juan', 'bear456'),"
+          "('luis', 'monkey789'),"
+          "('sara', 'zebra123'),"
+          "('carlos', 'rno456'),"
+          "('elena', 'ala789'),"
+          "('david', 'panda123');");
+
+      db.execute("INSERT INTO voto(idpartido, idusuario) VALUES"
+          "('1', '1'),"
+          "('0', '2'),"
+          "('1', '3'),"
+          "('4', '4'),"
+          "('5', '5'),"
+          "('7', '6'),"
+          "('7', '7'),"
+          "('8', '8'),"
+          "('8', '9'),"
+          "('8', '10');");
     }, version: 1);
   }
 
@@ -185,5 +209,73 @@ class VotoDataBase {
       where: 'id = ?',
       whereArgs: [idUsuario],
     );
+  }
+
+//resultados
+  static Future<List<Map<String, dynamic>>> resumenVotosPorPartido() async {
+    Database db = await _openDB();
+
+    final List<Map<String, dynamic>> resumenMap = await db.rawQuery('''
+    SELECT partidopolitico.nombre, COUNT(voto.id) as cantidad_votos,
+    (COUNT(voto.id) * 100.0 / (SELECT COUNT(id) FROM voto)) as porcentaje, partidopolitico.imagen
+    FROM partidopolitico
+    LEFT JOIN voto ON partidopolitico.id = voto.idpartido
+    GROUP BY partidopolitico.id
+    ORDER BY cantidad_votos DESC;
+  ''');
+
+    return resumenMap;
+  }
+
+//resultado filtados:
+  static Future<List<Map<String, dynamic>>> resumenVotosPorPartidoFiltrado(
+      List<PartidosPoliticos> partidos) async {
+    Database db = await _openDB();
+
+    final List<int> partidoIds = partidos.map((partido) => partido.id).toList();
+
+    final List<Map<String, dynamic>> resumenMap = await db.rawQuery('''
+    SELECT partidopolitico.nombre, COUNT(voto.id) as cantidad_votos,
+    (COUNT(voto.id) * 100.0 / (SELECT COUNT(id) FROM voto)) as porcentaje, partidopolitico.imagen
+    FROM partidopolitico
+    LEFT JOIN voto ON partidopolitico.id = voto.idpartido
+    WHERE partidopolitico.id IN (${partidoIds.join(', ')})
+    GROUP BY partidopolitico.id
+    ORDER BY cantidad_votos DESC;
+  ''');
+
+    return resumenMap;
+  }
+
+// conteo votos nulos
+  static Future<int> contarVotosSinPartido() async {
+    final Database db = await _openDB();
+
+    final List<Map<String, dynamic>> result = await db.rawQuery('''
+      SELECT COUNT(*) as cantidad FROM voto WHERE idpartido = 0;
+    ''');
+
+    return result.isNotEmpty ? result.first['cantidad'] : 0;
+  }
+  // conteo por partidos
+
+  static Future<List<Map<String, dynamic>>> resumenVotosPorPartidoEspecifico(
+      int partidoId) async {
+    Database db = await _openDB();
+
+    final List<Map<String, dynamic>> resumenMap = await db.rawQuery('''
+    SELECT partidopolitico.nombre, partidopolitico.imagen AS imagen_partido, 
+    candidato.nombre AS nombre_candidato, candidato.imagen AS imagen_candidato,candidato.cargo,
+    COUNT(voto.id) as cantidad_votos,
+    (COUNT(voto.id) * 100.0 / (SELECT COUNT(id) FROM voto)) as porcentaje
+    FROM partidopolitico
+    LEFT JOIN voto ON partidopolitico.id = voto.idpartido
+    LEFT JOIN candidato ON partidopolitico.id = candidato.idpartido
+    WHERE partidopolitico.id = $partidoId
+    GROUP BY partidopolitico.id, candidato.id
+    ORDER BY cantidad_votos DESC;
+  ''');
+
+    return resumenMap;
   }
 }

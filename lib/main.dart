@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:voto_facil/config/routes/index.dart';
 import 'package:voto_facil/config/theme/app_theme.dart';
+import 'package:voto_facil/presentation/pages/resultado/resultado_dashboard.dart';
 import 'package:zog_ui/zog_ui.dart';
 
 void main() => runApp(MyApp());
@@ -21,7 +22,8 @@ class MyApp extends StatelessWidget {
     '/papeleta': (context) => const PapeletaPage(),
     '/faq1': (context) => const Faq1Page(),
     '/lista_resultado': (context) => const ListaResultado(),
-    '/home_resultado': (context) => const Resultado(),
+    
+    '/resultado_dashboard': (context) => const ListadoPartidosResultados(),
   };
 
   @override
